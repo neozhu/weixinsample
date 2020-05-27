@@ -1,0 +1,2 @@
+D:\samples\WeiXinMPSDK\Samples\net45-mvc\Senparc.Weixin.MP.Sample.CommonService\obj\Debug\Senparc.Weixin.MP.Sample.CommonService.csproj.CoreCompileInputs.cache
+D:\samples\WeiXinMPSDK\Samples\net45-mvc\Senparc.Weixin.MP.Sample.CommonService\obj\Debug\Senparc.Weixin.MP.Sample.CommonService.csprojAssemblyReference.cache

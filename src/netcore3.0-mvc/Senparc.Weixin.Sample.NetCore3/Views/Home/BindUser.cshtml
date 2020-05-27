@@ -1,0 +1,84 @@
+﻿@model Senparc.Weixin.Sample.NetCore3.Models.VD.Home_IndexVD
+@{
+    ViewBag.Title = "";
+
+}
+@section scripts
+ {
+
+    <script src="~/lib/jquery.serializeJSON/jquery.serializejson.min.js"></script>
+
+    <script type="text/javascript">
+        $(() => {
+
+            $('#bindingbtn').on('click', function () {
+                var form = document.getElementById("bindform");
+                if (form.reportValidity()) {
+                    var user = $('#bindform').serializeJSON();
+                    console.log(user);
+                    $.post('http://192.168.0.136:5011/api/user/login', {
+                        token: '',
+                        loginMark: '07108842-c417-45f3-a39c-18201883867a',  
+                        data:
+                            { "username": "System", "password": "670b14728ad9902aecba32e22fa4f6bd", "openid": "xxxx" }
+
+                    }).done(res => {
+
+                        console.log(res);
+                       // window.location.href = '/Home/QrCode';
+                    })
+                   
+                }
+                else {
+                    form.classList.add('was-validated');
+                }
+            });
+            $('#restbtn').on('click', function () {
+                var form = document.getElementById("bindform");
+                form.reset();
+                form.classList.remove('was-validated');
+            });
+        })
+    </script>
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="oliver kopyov">
+            <div class="card-header pr-3 d-flex align-items-center flex-wrap">
+                <!-- we wrap header title inside a div tag with utility padding -->
+                <div class="card-title">绑定用户</div>
+                <button onclick="window.history.back()" class="btn   btn-light ml-auto waves-effect waves-themed">
+                    返回
+                </button>
+
+            </div>
+            <div class="card-body">
+                <form id="bindform" class="needs-validation" novalidate>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class=" form-control  rounded-0 border-top-0 border-left-0 border-right-0 px-0 bg-transparent" placeholder="用户名" required name="username" id="username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class=" form-control  rounded-0 border-top-0 border-left-0 border-right-0 px-0 bg-transparent" placeholder="手机号" pattern="[1](([3][0-9])|([4][5-9])|([5][0-3,5-9])|([6][5,6])|([7][0-8])|([8][0-9])|([9][1,8,9]))[0-9]{8}$" name="phonenumber" id="phonenumber">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class=" form-control  rounded-0 border-top-0 border-left-0 border-right-0 px-0 bg-transparent" placeholder="企业十位编码" required pattern="[0-9]{10}" name="tradeno" id="tradeno">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body border-faded border-left-0 border-right-0 border-bottom-0 d-flex flex-row align-items-center">
+                <button id="bindingbtn" class="btn btn-primary ml-auto waves-effect waves-themed" type="button">绑定</button>
+                <button id="restbtn" class="btn btn-light  ml-1 waves-effect waves-themed" type="reset">重置</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+

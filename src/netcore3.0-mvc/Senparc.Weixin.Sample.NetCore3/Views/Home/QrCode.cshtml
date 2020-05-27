@@ -1,0 +1,66 @@
+﻿@model Senparc.Weixin.Sample.NetCore3.Models.VD.Home_IndexVD
+@{
+    ViewBag.Title = "";
+
+}
+@section scripts
+    {
+    <script>
+        $(() => {
+            $("#bindingcarbtn").on("click", function () {
+                bootbox.prompt(
+                    {
+                        title: "重新绑定车牌号",
+                        inputType: 'text',
+                        placeholder: '输入有效的车牌号',
+                        pattern: '[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}',
+                        inputOptions: {
+                            placeholder:'车牌号',
+                            pattern:'[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}'
+                        },
+                        callback: function (result) {
+                            console.log(result);
+                        }
+                    });
+            });
+
+
+
+        })
+    </script>
+}
+
+ 
+
+<div class="row">
+    <div class="col-xl-12">
+        <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="oliver kopyov">
+            <div class="card-header pr-3 d-flex align-items-center flex-wrap">
+                <!-- we wrap header title inside a div tag with utility padding -->
+                <div class="card-title">二维码查询</div>
+                <button id="bindingcarbtn" class="btn   btn-primary ml-auto mr-1 waves-effect waves-themed">
+                   重新绑定车号
+                </button>
+
+                <button onclick="window.history.back()" class="btn   btn-light   waves-effect waves-themed">
+                    返回
+                </button>
+
+            </div>
+
+            <div class="card-body">
+                <h4>序列号:R12020051400001</h4>
+                <img src="~/img/qrcode.png" class="card-img" alt="...">
+            </div>
+            <div class="card-body collapse show">
+
+                <div class="card-body">
+                    <h5 class="card-title">车牌号:苏E98712</h5>
+                    <h5 class="card-title">监管区域:苏州园区综保区</h5>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

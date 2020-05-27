@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<!-- 
+Template Name:  SmartAdmin Responsive WebApp - Template build with Twitter Bootstrap 4
+Version: 4.4.1
+Author: Sunnyat Ahmmed
+Website: http://gootbootstrap.com
+Purchase: https://wrapbootstrap.com/theme/smartadmin-responsive-webapp-WB0573SK0
+License: You must have a valid license purchased only from wrapbootstrap.com (link above) in order to legally use this theme for your project.
+-->
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+           ATB智能关务公众号
+        </title>
+        <meta name="description" content="Page Titile">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+        <!-- Call App Mode on ios devices -->
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <!-- Remove Tap Highlight on Windows Phone IE -->
+        <meta name="msapplication-tap-highlight" content="no">
+        <!-- base css -->
+        <link rel="stylesheet" media="screen, print" href="css/vendors.bundle.css">
+        <link rel="stylesheet" media="screen, print" href="css/app.bundle.css">
+        <!-- Place favicon.ico in the root directory -->
+        <link rel="apple-touch-icon" sizes="180x180" href="img/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
+        <link rel="mask-icon" href="img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+        <!--<link rel="stylesheet" media="screen, print" href="css/your_styles.css">-->
+        <style>
+        .timeline {
+  line-height: 1.4em;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.timeline h1, .timeline h2, .timeline h3, .timeline h4, .timeline h5, .timeline h6 {
+  line-height: inherit;
+}
+
+/*----- TIMELINE ITEM -----*/
+.timeline-item {
+  padding-left: 40px;
+  position: relative;
+}
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+/*----- TIMELINE INFO -----*/
+.timeline-info {
+  margin: 0 0 .5em 0;
+  white-space: nowrap;
+}
+
+/*----- TIMELINE MARKER -----*/
+.timeline-marker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 15px;
+}
+.timeline-marker:before {
+  background: #886ab5;
+  border: 3px solid transparent;
+  border-radius: 100%;
+  content: "";
+  display: block;
+  height: 15px;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 15px;
+  transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+.timeline-marker:after {
+  content: "";
+  width: 3px;
+  background: #CCD5DB;
+  display: block;
+  position: absolute;
+  top: 24px;
+  bottom: 0;
+  left: 6px;
+}
+.timeline-item:last-child .timeline-marker:after {
+  content: none;
+}
+
+.timeline-item:not(.period):hover .timeline-marker:before {
+  background: transparent;
+  border: 3px solid #886ab5;
+}
+
+/*----- TIMELINE CONTENT -----*/
+.timeline-content {
+  padding-bottom: 40px;
+}
+.timeline-content p:last-child {
+  margin-bottom: 0;
+}
+
+/*----- TIMELINE PERIOD -----*/
+.period {
+  padding: 0;
+}
+.period .timeline-info {
+  display: none;
+}
+.period .timeline-marker:before {
+  background: transparent;
+  content: "";
+  width: 15px;
+  height: auto;
+  border: none;
+  border-radius: 0;
+  top: 0;
+  bottom: 30px;
+  position: absolute;
+  border-top: 3px solid #CCD5DB;
+  border-bottom: 3px solid #CCD5DB;
+}
+.period .timeline-marker:after {
+  content: "";
+  height: 32px;
+  top: auto;
+}
+.period .timeline-content {
+  padding: 40px 0 70px;
+}
+.period .timeline-title {
+  margin: 0;
+}
+
+/*----------------------------------------------
+    MOD: TIMELINE SPLIT
+----------------------------------------------*/
+@media (min-width: 768px) {
+  .timeline-split .timeline, .timeline-centered .timeline {
+    display: table;
+  }
+  .timeline-split .timeline-item, .timeline-centered .timeline-item {
+    display: table-row;
+    padding: 0;
+  }
+  .timeline-split .timeline-info, .timeline-centered .timeline-info,
+  .timeline-split .timeline-marker,
+  .timeline-centered .timeline-marker,
+  .timeline-split .timeline-content,
+  .timeline-centered .timeline-content,
+  .timeline-split .period .timeline-info,
+  .timeline-centered .period .timeline-info {
+    display: table-cell;
+    vertical-align: top;
+  }
+  .timeline-split .timeline-marker, .timeline-centered .timeline-marker {
+    position: relative;
+  }
+  .timeline-split .timeline-content, .timeline-centered .timeline-content {
+    padding-left: 30px;
+  }
+  .timeline-split .timeline-info, .timeline-centered .timeline-info {
+    padding-right: 30px;
+  }
+  .timeline-split .period .timeline-title, .timeline-centered .period .timeline-title {
+    position: relative;
+    left: -45px;
+  }
+}
+
+/*----------------------------------------------
+    MOD: TIMELINE CENTERED
+----------------------------------------------*/
+@media (min-width: 992px) {
+  .timeline-centered,
+  .timeline-centered .timeline-item,
+  .timeline-centered .timeline-info,
+  .timeline-centered .timeline-marker,
+  .timeline-centered .timeline-content {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+  .timeline-centered .timeline-item {
+    padding-bottom: 40px;
+    overflow: hidden;
+  }
+  .timeline-centered .timeline-marker {
+    position: absolute;
+    left: 50%;
+    margin-left: -7.5px;
+  }
+  .timeline-centered .timeline-info,
+  .timeline-centered .timeline-content {
+    width: 50%;
+  }
+  .timeline-centered > .timeline-item:nth-child(odd) .timeline-info {
+    float: left;
+    text-align: right;
+    padding-right: 30px;
+  }
+  .timeline-centered > .timeline-item:nth-child(odd) .timeline-content {
+    float: right;
+    text-align: left;
+    padding-left: 30px;
+  }
+  .timeline-centered > .timeline-item:nth-child(even) .timeline-info {
+    float: right;
+    text-align: left;
+    padding-left: 30px;
+  }
+  .timeline-centered > .timeline-item:nth-child(even) .timeline-content {
+    float: left;
+    text-align: right;
+    padding-right: 30px;
+  }
+  .timeline-centered > .timeline-item.period .timeline-content {
+    float: none;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+  }
+  .timeline-centered .timeline-item.period {
+    padding: 50px 0 90px;
+  }
+  .timeline-centered .period .timeline-marker:after {
+    height: 30px;
+    bottom: 0;
+    top: auto;
+  }
+  .timeline-centered .period .timeline-title {
+    left: auto;
+  }
+}
+
+/*----------------------------------------------
+    MOD: MARKER OUTLINE
+----------------------------------------------*/
+.marker-outline .timeline-marker:before {
+  background: transparent;
+  border-color: #886ab5;
+}
+.marker-outline .timeline-item:hover .timeline-marker:before {
+  background: #886ab5;
+}
+        </style>
+    </head>
+    <body class="mod-bg-1 ">
+        <!-- DOC: script to save and load page settings -->
+        <script>
+            /**
+             *	This script should be placed right after the body tag for fast execution 
+             *	Note: the script is written in pure javascript and does not depend on thirdparty library
+             **/
+            'use strict';
+
+            var classHolder = document.getElementsByTagName("BODY")[0],
+                /** 
+                 * Load from localstorage
+                 **/
+                themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
+                {},
+                themeURL = themeSettings.themeURL || '',
+                themeOptions = themeSettings.themeOptions || '';
+            /** 
+             * Load theme options
+             **/
+            if (themeSettings.themeOptions)
+            {
+                classHolder.className = themeSettings.themeOptions;
+                console.log("%c✔ Theme settings loaded", "color: #148f32");
+            }
+            else
+            {
+                console.log("Heads up! Theme settings is empty or does not exist, loading default settings...");
+            }
+            if (themeSettings.themeURL && !document.getElementById('mytheme'))
+            {
+                var cssfile = document.createElement('link');
+                cssfile.id = 'mytheme';
+                cssfile.rel = 'stylesheet';
+                cssfile.href = themeURL;
+                document.getElementsByTagName('head')[0].appendChild(cssfile);
+            }
+            /** 
+             * Save to localstorage 
+             **/
+            var saveSettings = function()
+            {
+                themeSettings.themeOptions = String(classHolder.className).split(/[^\w-]+/).filter(function(item)
+                {
+                    return /^(nav|header|mod|display)-/i.test(item);
+                }).join(' ');
+                if (document.getElementById('mytheme'))
+                {
+                    themeSettings.themeURL = document.getElementById('mytheme').getAttribute("href");
+                };
+                localStorage.setItem('themeSettings', JSON.stringify(themeSettings));
+            }
+            /** 
+             * Reset settings
+             **/
+            var resetSettings = function()
+            {
+                localStorage.setItem("themeSettings", "");
+            }
+
+        </script>
+        <!-- BEGIN Page Wrapper -->
+        <div class="page-wrapper">
+            <div class="page-inner">
+                <!-- BEGIN Left Aside -->
+                <aside class="page-sidebar">
+                    <div class="page-logo">
+                        <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" >
+                            <img src="img/logo.png" alt="ATB智能关务公众号" aria-roledescription="logo">
+                            <span class="page-logo-text mr-1">ATB智能关务公众号</span>
+                            <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
+                           
+                        </a>
+                    </div>
+                    <!-- BEGIN PRIMARY NAVIGATION -->
+                    <nav id="js-primary-nav" class="primary-nav" role="navigation">
+                        
+                        <ul id="js-nav-menu" class="nav-menu">
+                            <li>
+                                <a href="#" title="物流操作" data-filter-tags="物流操作">
+                                    <i class="fal fa-info-circle"></i>
+                                    <span class="nav-link-text" data-i18n="nav.application_intel">物流操作</span>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="qrcode.html" title="二维码生成" data-filter-tags="二维码生成">
+                                            <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">二维码生成</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="querycode.html" title="二维码查询" data-filter-tags="二维码查询">
+                                            <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">二维码查询</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="querylogistics.html" title="物流查询" data-filter-tags="物流查询">
+                                            <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">物流查询</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="querydoc.html" title="单证查询" data-filter-tags="单证查询">
+                                            <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">单证查询</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                             
+                             
+                              
+                            
+                        </ul>
+                        <div class="filter-message js-filter-message bg-success-600"></div>
+                    </nav>
+                    <!-- END PRIMARY NAVIGATION -->
+                    
+                     
+                </aside>
+                <!-- END Left Aside -->
+                <div class="page-content-wrapper">
+                    <!-- BEGIN Page Header -->
+                    <header class="page-header" role="banner">
+                        <!-- we need this logo when user switches to nav-function-top -->
+                        <div class="page-logo">
+                            <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal" data-target="#modal-shortcut">
+                                <img src="img/logo.png" alt="ATB智能关务公众号" aria-roledescription="logo">
+                                <span class="page-logo-text mr-1">ATB智能关务公众号</span>
+                                <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
+                                <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
+                            </a>
+                        </div>
+                        <!-- DOC: nav menu layout change shortcut -->
+                        <div class="hidden-md-down dropdown-icon-menu position-relative">
+                            <a href="#" class="header-btn btn js-waves-off" data-action="toggle" data-class="nav-function-hidden" title="Hide Navigation">
+                                <i class="ni ni-menu"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="#" class="btn js-waves-off" data-action="toggle" data-class="nav-function-minify" title="Minify Navigation">
+                                        <i class="ni ni-minify-nav"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="btn js-waves-off" data-action="toggle" data-class="nav-function-fixed" title="Lock Navigation">
+                                        <i class="ni ni-lock-nav"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- DOC: mobile button appears during mobile width -->
+                        <div class="hidden-lg-up">
+                            <a href="#" class="header-btn btn press-scale-down" data-action="toggle" data-class="mobile-nav-on">
+                                <i class="ni ni-menu"></i>
+                            </a>
+                        </div>
+                        
+                        
+                    </header>
+                    <!-- END Page Header -->
+                    <!-- BEGIN Page Content -->
+                    <!-- the #js-page-content id is needed for some plugins to initialize -->
+                    <main id="js-page-content" role="main" class="page-content">
+                         
+                        
+                        
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="oliver kopyov">
+                                    <div class="card-header pr-3 d-flex align-items-center flex-wrap">
+                                        <!-- we wrap header title inside a div tag with utility padding -->
+                                        <div class="card-title">物流状态</div>
+                                        <button onclick="window.history.back()" class="btn   btn-light ml-auto waves-effect waves-themed">
+                                            返回
+                                        </button>
+                                         
+                                    </div>
+                                    <div class="card-body pl-5">
+                                        <ul class="timeline">
+                                            <li class="timeline-item">
+                                                <div class="timeline-info">
+                                                    <span class="d-block text-truncate text-muted fs-xs mt-1">12:35</span>
+                                                </div>
+                                                <div class="timeline-marker"></div>
+                                                <div class="timeline-content">
+                                                    <div class="text-dark fw-500">二维码生成</div>
+                                                    
+                                                </div>
+                                            </li>
+                                            <li class="timeline-item">
+                                                <div class="timeline-info">
+                                                    <span class="d-block text-truncate text-muted fs-xs mt-1">12:35</span>
+                                                </div>
+                                                <div class="timeline-marker"></div>
+                                                <div class="timeline-content">
+                                                    <div class="text-dark fw-500">车辆入主卡口</div>
+                                                    
+                                                </div>
+                                            </li>
+                                            <li class="timeline-item">
+                                                <div class="timeline-info">
+                                                    <span class="d-block text-truncate text-muted fs-xs mt-1">12:35</span>
+                                                </div>
+                                                <div class="timeline-marker"></div>
+                                                <div class="timeline-content">
+                                                    <div class="text-dark fw-500">车辆入场站</div>
+                                                    
+                                                </div>
+                                            </li>
+                                            <li class="timeline-item">
+                                                <div class="timeline-info">
+                                                    <span class="d-block text-truncate text-muted fs-xs mt-1">12:35</span>
+                                                </div>
+                                                <div class="timeline-marker"></div>
+                                                <div class="timeline-content">
+                                                    <div class="text-dark fw-500">车辆出场站</div>
+                                                    
+                                                </div>
+                                            </li>
+                                            <li class="timeline-item">
+                                                <div class="timeline-info">
+                                                    <span class="d-block text-truncate text-muted fs-xs mt-1">12:35</span>
+                                                </div>
+                                                <div class="timeline-marker"></div>
+                                                <div class="timeline-content">
+                                                    <div class="text-dark fw-500">车辆入内卡口</div>
+                                                    
+                                                </div>
+                                            </li>
+                                            <li class="timeline-item">
+                                                <div class="timeline-info">
+                                                    <span class="d-block text-truncate text-muted fs-xs mt-1">12:35</span>
+                                                </div>
+                                                <div class="timeline-marker"></div>
+                                                <div class="timeline-content">
+                                                    <div class="text-dark fw-500">车辆出主卡口</div>
+                                                    
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                     
+                                     
+                                    
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </main>
+                    <!-- this overlay is activated only when mobile menu is triggered -->
+                    <div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div> <!-- END Page Content -->
+                    <!-- BEGIN Page Footer -->
+                    <footer class="page-footer" role="contentinfo">
+                        <div class="d-flex align-items-center flex-1 text-muted">
+                            <span class="hidden-md-down fw-700">2020 © 智能关务公众号&nbsp;</span>
+                        </div>
+                       
+                    </footer>
+                    <!-- END Page Footer -->
+           
+          
+                    <!-- BEGIN Color profile -->
+                    <!-- this area is hidden and will not be seen on screens or screen readers -->
+                    <!-- we use this only for CSS color refernce for JS stuff -->
+                    <p id="js-color-profile" class="d-none">
+                        <span class="color-primary-50"></span>
+                        <span class="color-primary-100"></span>
+                        <span class="color-primary-200"></span>
+                        <span class="color-primary-300"></span>
+                        <span class="color-primary-400"></span>
+                        <span class="color-primary-500"></span>
+                        <span class="color-primary-600"></span>
+                        <span class="color-primary-700"></span>
+                        <span class="color-primary-800"></span>
+                        <span class="color-primary-900"></span>
+                        <span class="color-info-50"></span>
+                        <span class="color-info-100"></span>
+                        <span class="color-info-200"></span>
+                        <span class="color-info-300"></span>
+                        <span class="color-info-400"></span>
+                        <span class="color-info-500"></span>
+                        <span class="color-info-600"></span>
+                        <span class="color-info-700"></span>
+                        <span class="color-info-800"></span>
+                        <span class="color-info-900"></span>
+                        <span class="color-danger-50"></span>
+                        <span class="color-danger-100"></span>
+                        <span class="color-danger-200"></span>
+                        <span class="color-danger-300"></span>
+                        <span class="color-danger-400"></span>
+                        <span class="color-danger-500"></span>
+                        <span class="color-danger-600"></span>
+                        <span class="color-danger-700"></span>
+                        <span class="color-danger-800"></span>
+                        <span class="color-danger-900"></span>
+                        <span class="color-warning-50"></span>
+                        <span class="color-warning-100"></span>
+                        <span class="color-warning-200"></span>
+                        <span class="color-warning-300"></span>
+                        <span class="color-warning-400"></span>
+                        <span class="color-warning-500"></span>
+                        <span class="color-warning-600"></span>
+                        <span class="color-warning-700"></span>
+                        <span class="color-warning-800"></span>
+                        <span class="color-warning-900"></span>
+                        <span class="color-success-50"></span>
+                        <span class="color-success-100"></span>
+                        <span class="color-success-200"></span>
+                        <span class="color-success-300"></span>
+                        <span class="color-success-400"></span>
+                        <span class="color-success-500"></span>
+                        <span class="color-success-600"></span>
+                        <span class="color-success-700"></span>
+                        <span class="color-success-800"></span>
+                        <span class="color-success-900"></span>
+                        <span class="color-fusion-50"></span>
+                        <span class="color-fusion-100"></span>
+                        <span class="color-fusion-200"></span>
+                        <span class="color-fusion-300"></span>
+                        <span class="color-fusion-400"></span>
+                        <span class="color-fusion-500"></span>
+                        <span class="color-fusion-600"></span>
+                        <span class="color-fusion-700"></span>
+                        <span class="color-fusion-800"></span>
+                        <span class="color-fusion-900"></span>
+                    </p>
+                    <!-- END Color profile -->
+                </div>
+            </div>
+        </div>
+        <!-- END Page Wrapper -->
+        <!-- BEGIN Quick Menu -->
+
+        <!-- END Page Settings -->
+        <!-- base vendor bundle: 
+			 DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations 
+						+ pace.js (recommended)
+						+ jquery.js (core)
+						+ jquery-ui-cust.js (core)
+						+ popper.js (core)
+						+ bootstrap.js (core)
+						+ slimscroll.js (extension)
+						+ app.navigation.js (core)
+						+ ba-throttle-debounce.js (core)
+						+ waves.js (extension)
+						+ smartpanels.js (extension)
+						+ src/../jquery-snippets.js (core) -->
+        <script src="js/vendors.bundle.js"></script>
+        <script src="js/app.bundle.js"></script>
+        <!--<script src="js/../script.js"></script>
+	<script>
+		$(document).ready(function () {
+			
+		});
+	</script>-->
+    </body>
+</html>

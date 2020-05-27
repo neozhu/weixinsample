@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+<!--
+Template Name:  SmartAdmin Responsive WebApp - Template build with Twitter Bootstrap 4
+Version: 4.4.1
+Author: Sunnyat Ahmmed
+Website: http://gootbootstrap.com
+Purchase: https://wrapbootstrap.com/theme/smartadmin-responsive-webapp-WB0573SK0
+License: You must have a valid license purchased only from wrapbootstrap.com (link above) in order to legally use this theme for your project.
+-->
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>
+        ATB智能关务公众号
+    </title>
+    <meta name="description" content="Page Titile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <!-- Call App Mode on ios devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <!-- base css -->
+    <link rel="stylesheet" media="screen, print" href="~/css/vendors.bundle.css">
+    <link rel="stylesheet" media="screen, print" href="~/css/app.bundle.css">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/img/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/img/favicon/favicon-32x32.png">
+    <link rel="mask-icon" href="~/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <!--<link rel="stylesheet" media="screen, print" href="css/your_styles.css">-->
+    @RenderSection("styles", required: false)
+    
+</head>
+<body class="mod-bg-1 ">
+
+    <!-- DOC: script to save and load page settings -->
+    <script>
+        /**
+         *	This script should be placed right after the body tag for fast execution
+         *	Note: the script is written in pure javascript and does not depend on thirdparty library
+         **/
+        'use strict';
+
+        var classHolder = document.getElementsByTagName("BODY")[0],
+            /**
+             * Load from localstorage
+             **/
+            themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
+                {},
+            themeURL = themeSettings.themeURL || '',
+            themeOptions = themeSettings.themeOptions || '';
+        /**
+         * Load theme options
+         **/
+        if (themeSettings.themeOptions) {
+            classHolder.className = themeSettings.themeOptions;
+            console.log("%c✔ Theme settings loaded", "color: #148f32");
+        }
+        else {
+            console.log("Heads up! Theme settings is empty or does not exist, loading default settings...");
+        }
+        if (themeSettings.themeURL && !document.getElementById('mytheme')) {
+            var cssfile = document.createElement('link');
+            cssfile.id = 'mytheme';
+            cssfile.rel = 'stylesheet';
+            cssfile.href = themeURL;
+            document.getElementsByTagName('head')[0].appendChild(cssfile);
+        }
+        /**
+         * Save to localstorage
+         **/
+        var saveSettings = function () {
+            themeSettings.themeOptions = String(classHolder.className).split(/[^\w-]+/).filter(function (item) {
+                return /^(nav|header|mod|display)-/i.test(item);
+            }).join(' ');
+            if (document.getElementById('mytheme')) {
+                themeSettings.themeURL = document.getElementById('mytheme').getAttribute("href");
+            };
+            localStorage.setItem('themeSettings', JSON.stringify(themeSettings));
+        }
+        /**
+         * Reset settings
+         **/
+        var resetSettings = function () {
+            localStorage.setItem("themeSettings", "");
+        }
+
+    </script>
+    <!-- BEGIN Page Wrapper -->
+    <div class="page-wrapper">
+        <div class="page-inner">
+            <!-- BEGIN Left Aside -->
+            <aside class="page-sidebar">
+                <div class="page-logo">
+                    <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative">
+                        <img src="~/img/logo.png" alt="ATB智能关务公众号" aria-roledescription="logo">
+                        <span class="page-logo-text mr-1">ATB智能关务公众号</span>
+                        <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
+
+                    </a>
+                </div>
+                <!-- BEGIN PRIMARY NAVIGATION -->
+                <nav id="js-primary-nav" class="primary-nav" role="navigation">
+
+                    <ul id="js-nav-menu" class="nav-menu">
+                        <li>
+                            <a href="#" title="物流操作" data-filter-tags="物流操作">
+                                <i class="fal fa-info-circle"></i>
+                                <span class="nav-link-text" data-i18n="nav.application_intel">物流操作</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a asp-controller="Home" asp-action="QrCode" title="二维码查询" data-filter-tags="二维码查询">
+                                        <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">二维码查询</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Home" asp-action="QueryLogistics" title="物流查询" data-filter-tags="物流查询">
+                                        <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">物流查询</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a asp-controller="Home" asp-action="QueryDoc" title="单证查询" data-filter-tags="单证查询">
+                                        <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">单证查询</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+
+
+
+                    </ul>
+
+                </nav>
+                <!-- END PRIMARY NAVIGATION -->
+
+
+            </aside>
+            <!-- END Left Aside -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN Page Header -->
+                <header class="page-header" role="banner">
+                    <!-- we need this logo when user switches to nav-function-top -->
+                    <div class="page-logo">
+                        <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal" data-target="#modal-shortcut">
+                            <img src="~/img/logo.png" alt="ATB智能关务公众号" aria-roledescription="logo">
+                            <span class="page-logo-text mr-1">ATB智能关务公众号</span>
+                            <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
+                            <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
+                        </a>
+                    </div>
+                    <!-- DOC: nav menu layout change shortcut -->
+                    <div class="hidden-md-down dropdown-icon-menu position-relative">
+                        <a href="#" class="header-btn btn js-waves-off" data-action="toggle" data-class="nav-function-hidden" title="Hide Navigation">
+                            <i class="ni ni-menu"></i>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="#" class="btn js-waves-off" data-action="toggle" data-class="nav-function-minify" title="Minify Navigation">
+                                    <i class="ni ni-minify-nav"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn js-waves-off" data-action="toggle" data-class="nav-function-fixed" title="Lock Navigation">
+                                    <i class="ni ni-lock-nav"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- DOC: mobile button appears during mobile width -->
+                    <div class="hidden-lg-up">
+                        <a href="#" class="header-btn btn press-scale-down" data-action="toggle" data-class="mobile-nav-on">
+                            <i class="ni ni-menu"></i>
+                        </a>
+                    </div>
+
+
+                </header>
+                <!-- END Page Header -->
+                <!-- BEGIN Page Content -->
+                <!-- the #js-page-content id is needed for some plugins to initialize -->
+                <main id="js-page-content" role="main" class="page-content">
+                    @RenderBody()
+                </main>
+                <!-- this overlay is activated only when mobile menu is triggered -->
+                <div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div> <!-- END Page Content -->
+                <!-- BEGIN Page Footer -->
+                <footer class="page-footer" role="contentinfo">
+                    <div class="d-flex align-items-center flex-1 text-muted">
+                        <span class="hidden-md-down fw-700">2020 © 智能关务公众号&nbsp;</span>
+                    </div>
+
+                </footer>
+                <!-- END Page Footer -->
+                <!-- BEGIN Color profile -->
+                <!-- this area is hidden and will not be seen on screens or screen readers -->
+                <!-- we use this only for CSS color refernce for JS stuff -->
+                <p id="js-color-profile" class="d-none">
+                    <span class="color-primary-50"></span>
+                    <span class="color-primary-100"></span>
+                    <span class="color-primary-200"></span>
+                    <span class="color-primary-300"></span>
+                    <span class="color-primary-400"></span>
+                    <span class="color-primary-500"></span>
+                    <span class="color-primary-600"></span>
+                    <span class="color-primary-700"></span>
+                    <span class="color-primary-800"></span>
+                    <span class="color-primary-900"></span>
+                    <span class="color-info-50"></span>
+                    <span class="color-info-100"></span>
+                    <span class="color-info-200"></span>
+                    <span class="color-info-300"></span>
+                    <span class="color-info-400"></span>
+                    <span class="color-info-500"></span>
+                    <span class="color-info-600"></span>
+                    <span class="color-info-700"></span>
+                    <span class="color-info-800"></span>
+                    <span class="color-info-900"></span>
+                    <span class="color-danger-50"></span>
+                    <span class="color-danger-100"></span>
+                    <span class="color-danger-200"></span>
+                    <span class="color-danger-300"></span>
+                    <span class="color-danger-400"></span>
+                    <span class="color-danger-500"></span>
+                    <span class="color-danger-600"></span>
+                    <span class="color-danger-700"></span>
+                    <span class="color-danger-800"></span>
+                    <span class="color-danger-900"></span>
+                    <span class="color-warning-50"></span>
+                    <span class="color-warning-100"></span>
+                    <span class="color-warning-200"></span>
+                    <span class="color-warning-300"></span>
+                    <span class="color-warning-400"></span>
+                    <span class="color-warning-500"></span>
+                    <span class="color-warning-600"></span>
+                    <span class="color-warning-700"></span>
+                    <span class="color-warning-800"></span>
+                    <span class="color-warning-900"></span>
+                    <span class="color-success-50"></span>
+                    <span class="color-success-100"></span>
+                    <span class="color-success-200"></span>
+                    <span class="color-success-300"></span>
+                    <span class="color-success-400"></span>
+                    <span class="color-success-500"></span>
+                    <span class="color-success-600"></span>
+                    <span class="color-success-700"></span>
+                    <span class="color-success-800"></span>
+                    <span class="color-success-900"></span>
+                    <span class="color-fusion-50"></span>
+                    <span class="color-fusion-100"></span>
+                    <span class="color-fusion-200"></span>
+                    <span class="color-fusion-300"></span>
+                    <span class="color-fusion-400"></span>
+                    <span class="color-fusion-500"></span>
+                    <span class="color-fusion-600"></span>
+                    <span class="color-fusion-700"></span>
+                    <span class="color-fusion-800"></span>
+                    <span class="color-fusion-900"></span>
+                </p>
+                <!-- END Color profile -->
+            </div>
+        </div>
+    </div>
+    <!-- END Page Wrapper -->
+    <!-- BEGIN Quick Menu -->
+    <!-- END Page Settings -->
+    <!-- base vendor bundle:
+         DOC: if you remove pace.js from core please note on Internet Explorer some CSS animations may execute before a page is fully loaded, resulting 'jump' animations
+                    + pace.js (recommended)
+                    + jquery.js (core)
+                    + jquery-ui-cust.js (core)
+                    + popper.js (core)
+                    + bootstrap.js (core)
+                    + slimscroll.js (extension)
+                    + app.navigation.js (core)
+                    + ba-throttle-debounce.js (core)
+                    + waves.js (extension)
+                    + smartpanels.js (extension)
+                    + src/../jquery-snippets.js (core) -->
+    <script src="~/js/vendors.bundle.js"></script>
+    <script src="~/js/app.bundle.js"></script>
+    @RenderSection("scripts", required: false)
+    <!--<script src="js/../script.js"></script>
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>-->
+</body>
+</html>
