@@ -3,23 +3,100 @@
     ViewBag.Title = "";
 
 }
+@section styles{
+    <link href="~/css/notifications/toastr/toastr.css" rel="stylesheet" />
+    <style>
+        #qrcode img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+}
 @section scripts
     {
+    <script src="~/js/jquery-qrcode.js"></script>
+    <script src="~/js/qrcode.js"></script>
+    <script src="~/js/notifications/toastr/toastr.js"></script>
     <script>
-        $(() => {
+        //var qrcode = new QRCode("qrcode", {
+        
+        //});
+        $(async () => {
+            
+            var vehicle_no = localStorage.getItem("vehicle_no");
+            //var ic = localStorage.getItem("ic");
+            var openid = localStorage.getItem("openid");
+            var token = localStorage.getItem("token");
+            if (token && openid) {
+                if (vehicle_no == null) {
+                    bootbox.prompt(
+                        {
+                            title: "绑定车牌号",
+                            inputType: 'text',
+                            placeholder: '输入有效的车牌号',
+                            //pattern: '[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}',
+                            inputOptions: {
+                                placeholder: '车牌号',
+                                //pattern: '[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}'
+                            },
+                            buttons: {
+                                confirm: {
+                                    label: '绑定',
+                                    className: 'btn-info'
+                                },
+                                cancel: {
+                                    label: '取消',
+                                    className: 'btn-default'
+                                }
+                            },
+                            callback: async function (result) {
+                                console.log(result);
+                                if (result) {
+                                    var res = await getvehicel(token, openid, result);
+                                    console.log(res)
+                                     
+                                }
+                            }
+                        });
+                } else {
+                    var res = await getvehicel(token, openid, vehicle_no);
+
+                   
+                }
+               
+            } else {
+                showinfo('用户没有绑定,清先绑定账号')
+                window.location.href = '/Home/BindUser';
+            }
+
+
             $("#bindingcarbtn").on("click", function () {
                 bootbox.prompt(
                     {
                         title: "重新绑定车牌号",
                         inputType: 'text',
                         placeholder: '输入有效的车牌号',
-                        pattern: '[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}',
-                        inputOptions: {
-                            placeholder:'车牌号',
-                            pattern:'[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}'
+                        //pattern: '[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}',
+                        value: vehicle_no,
+                        buttons: {
+                            confirm: {
+                                label: '绑定',
+                                className: 'btn-info'
+                            },
+                            cancel: {
+                                label: '取消',
+                                className: 'btn-default'
+                            }
                         },
-                        callback: function (result) {
+                        callback: async function (result) {
                             console.log(result);
+                            if (result) {
+                                var res = await getvehicel(token, openid, result);
+                                console.log(res)
+                                 
+                            }
                         }
                     });
             });
@@ -27,10 +104,127 @@
 
 
         })
+        async function getvehicel(token, openid, veh) {
+            var dialog = bootbox.dialog({
+                message: '<p class="text-center mb-0"><i class="fal fa-spin fa-spinner"></i> 请等待...</p>',
+                closeButton: false
+            });
+            var input = JSON.stringify({ VEHICLE_NO: veh, VEHICLE_COLOR: "1" });
+            var url = `@ViewBag.apihost/api/passport/getinfoToD?token=${token}&loginMark=${openid}&data=${input}`;
+            var res = await $.post(url);
+            console.log(res);
+            setTimeout(() => {
+                dialog.modal('hide');
+            }, 500)
+            if (res.code == 410) {
+                showinfo('登录过期')
+                localStorage.setItem("token", '');
+                window.location.href = '/Home/BindUser';
+            } else if (res.code == 200) {
+                var ic = res.data.passport.head[0].VEHICLE_IC_NO;
+                var veh = res.data.passport.head[0].VEHICLE_NO;
+                var vehcolor = res.data.passport.head[0].VEHICLE_COLOR;
+                $('#title').text(`卡号:${ic}`);
+                $('#title1').text(`车牌号:${veh}`);
+                showqrcode(ic);
+                localStorage.setItem("vehicle_no", veh);
+                localStorage.setItem("vehicle_color", vehcolor);
+                localStorage.setItem("ic", ic);
+                showinfo('车牌绑定成功')
+            } else {
+                bootbox.alert(res.info);
+                localStorage.setItem("vehicle_no", veh);
+                localStorage.setItem("vehicle_color", '');
+                localStorage.setItem("ic", '');
+                $('#title').text(`卡号:空`);
+                $('#title1').text(`车牌号:空`);
+                showqrcode('');
+            }  
+            return res;
+        } 
+        function showqrcode(str) {
+            //qrcode.makeCode(str);
+            if (str) {
+                $('#qrcode').empty().qrcode({
+                    // render method: 'canvas', 'image' or 'div'
+                    render: 'image',
+
+                    // version range somewhere in 1 .. 40
+                    minVersion: 1,
+                    maxVersion: 40,
+
+                    // error correction level: 'L', 'M', 'Q' or 'H'
+                    ecLevel: 'L',
+
+                    // offset in pixel if drawn onto existing canvas
+                    left: 0,
+                    top: 0,
+
+                    // size in pixel
+                    size: 400,
+
+                    // code color or image element
+                    fill: '#000',
+
+                    // background color or image element, null for transparent background
+                    background: null,
+
+                    // content
+                    text: str,
+
+                    // corner radius relative to module width: 0.0 .. 0.5
+                    radius: 0,
+
+                    // quiet zone in modules
+                    quiet: 1,
+
+                    // modes
+                    // 0: normal
+                    // 1: label strip
+                    // 2: label box
+                    // 3: image strip
+                    // 4: image box
+                    mode: 0,
+
+                    mSize: 0.1,
+                    mPosX: 0.5,
+                    mPosY: 0.5,
+
+                    label: 'no label',
+                    fontname: 'sans',
+                    fontcolor: '#000',
+
+                    image: null
+                });
+            } else {
+                $('#qrcode').empty().width(309).height(309)
+            }
+        }
+        function showinfo(msg) {
+            toastr["info"](msg)
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": false,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": 300,
+                "hideDuration": 100,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000,
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
     </script>
 }
 
- 
+
 
 <div class="row">
     <div class="col-xl-12">
@@ -39,7 +233,7 @@
                 <!-- we wrap header title inside a div tag with utility padding -->
                 <div class="card-title">二维码查询</div>
                 <button id="bindingcarbtn" class="btn   btn-primary ml-auto mr-1 waves-effect waves-themed">
-                   重新绑定车号
+                    重新绑定车号
                 </button>
 
                 <button onclick="window.history.back()" class="btn   btn-light   waves-effect waves-themed">
@@ -48,17 +242,15 @@
 
             </div>
 
-            <div class="card-body">
-                <h4>序列号:R12020051400001</h4>
-                <img src="~/img/qrcode.png" class="card-img" alt="...">
+            <div class="card-body m-auto">
+                <h4 id="title">卡号:</h4>
+                <div id="qrcode"  ></div>
             </div>
-            <div class="card-body collapse show">
+            <div class="card-body   m-auto">
 
-                <div class="card-body">
-                    <h5 class="card-title">车牌号:苏E98712</h5>
-                    <h5 class="card-title">监管区域:苏州园区综保区</h5>
+                <h4 id="title1">车牌号:</h4>
+                <h4 id="title2">监管区域:@ViewBag.zone</h4>
 
-                </div>
             </div>
 
         </div>

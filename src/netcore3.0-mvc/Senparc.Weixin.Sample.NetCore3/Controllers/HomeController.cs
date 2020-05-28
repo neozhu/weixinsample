@@ -25,6 +25,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Senparc.Weixin.MP.Helpers;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Senparc.Weixin.Sample.NetCore3.Controllers
 {
@@ -34,11 +35,14 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
         private string appSecret = Config.SenparcWeixinSetting.WeixinAppSecret;
         private readonly ILogger<HomeController> _logger;
         IHostingEnvironment _env;
-
-        public HomeController(ILogger<HomeController> logger, IHostingEnvironment env)
+        private readonly IConfiguration _config;
+        public HomeController(ILogger<HomeController> logger, IHostingEnvironment env, IConfiguration config)
         {
             _logger = logger;
             _env = env;
+            _config = config;
+
+
         }
         public IActionResult upload(IFormFile file) {
             var form = this.Request.Form;
@@ -205,7 +209,8 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             ViewBag.Timestamp = jssdkUiPackage.Timestamp;
             ViewBag.NonceStr = jssdkUiPackage.NonceStr;
             ViewBag.Signature = jssdkUiPackage.Signature;
-            
+            ViewBag.apihost = this._config.GetValue<string>("AppSetting:apihost");
+            ViewBag.zone = this._config.GetValue<string>("AppSetting:zone");
 
             return View();
         }
@@ -217,21 +222,29 @@ namespace Senparc.Weixin.Sample.NetCore3.Controllers
             ViewBag.Timestamp = jssdkUiPackage.Timestamp;
             ViewBag.NonceStr = jssdkUiPackage.NonceStr;
             ViewBag.Signature = jssdkUiPackage.Signature;
+
+            ViewBag.apihost = this._config.GetValue<string>("AppSetting:apihost");
+            ViewBag.zone = this._config.GetValue<string>("AppSetting:zone");
             return View();
         }
         //明细结果
-        public ActionResult QueryResult(string id="")
+        public ActionResult QueryResult(string etps= "")
         {
+            ViewBag.apihost = this._config.GetValue<string>("AppSetting:apihost");
+            ViewBag.zone = this._config.GetValue<string>("AppSetting:zone");
             return View();
         }
         //二维码查询
         public ActionResult QrCode()
         {
+            ViewBag.apihost = this._config.GetValue<string>("AppSetting:apihost");
+            ViewBag.zone = this._config.GetValue<string>("AppSetting:zone");
             return View();
         }
         //绑定账号
         public ActionResult BindUser(string role="1") {
             ViewBag.role = role;
+            ViewBag.apihost = this._config.GetValue<string>("AppSetting:apihost");
             return View();
 
         }

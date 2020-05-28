@@ -3,31 +3,106 @@
     ViewBag.Title = "";
 
 }
+@section styles{ 
+    <link href="~/css/notifications/toastr/toastr.css" rel="stylesheet" />
+
+}
 @section scripts
  {
 
     <script src="~/lib/jquery.serializeJSON/jquery.serializejson.min.js"></script>
-
+    <script src="~/js/notifications/toastr/toastr.js"></script>
     <script type="text/javascript">
         $(() => {
+            
+            var token =  localStorage.getItem("token");
+            var openid = localStorage.getItem("openid");
+            console.log(openid, token);
+            if (token) {
+                console.log(token);
+                window.location.href = '/Home/QrCode';
+            } else {
+                console.log('no token');
+            }
 
+            function uuidv4() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
             $('#bindingbtn').on('click', function () {
                 var form = document.getElementById("bindform");
                 if (form.reportValidity()) {
                     var user = $('#bindform').serializeJSON();
+                    if (openid != null) {
+                        user.openid = openid;
+                    }
+                    else {
+                        user.openid = uuidv4();;
+                    }
                     console.log(user);
-                    $.post('http://192.168.0.136:5011/api/user/login', {
-                        token: '',
-                        loginMark: '07108842-c417-45f3-a39c-18201883867a',  
-                        data:
-                            { "username": "System", "password": "670b14728ad9902aecba32e22fa4f6bd", "openid": "xxxx" }
-
-                    }).done(res => {
-
+                    var dialog = bootbox.dialog({
+                        message: '<p class="text-center mb-0"><i class="fal fa-spin fa-spinner"></i> 请等待...</p>',
+                        closeButton: false
+                    });
+                    var data = JSON.stringify({ username: user.username, openid: user.openid });
+                    var url = `@ViewBag.apihost/api/user/login?token=&loginMark=${user.openid}&data=${data}`;
+                    console.log(url);
+                    $.post(url).done(res => {
+                        setTimeout(() => {
+                            dialog.modal('hide');
+                        }, 500)
                         console.log(res);
+                        //debugger;
+                        if (res.code == 200) {
+                            showinfo('绑定成功')
+                            localStorage.setItem("token", res.data.baseinfo.token);
+                            localStorage.setItem("username", user.username);
+                            localStorage.setItem("openid", user.openid);
+                            window.location.href = '/Home/QrCode';
+                        } else {
+                            console.log(res.info)
+                            if (res.info.includes('此账户已经绑定')) {
+                                bootbox.confirm({
+                                    message: "此账户已经绑定,你可以解绑后重新绑定吗?",
+                                    buttons: {
+                                        confirm: {
+                                            label: '解绑',
+                                            className: 'btn-danger'
+                                        },
+                                        cancel: {
+                                            label: '取消',
+                                            className: 'btn-success'
+                                        }
+                                    },
+                                    callback:function(result) {
+                                        /* your callback code */
+                                        console.log(result)
+
+                                        var url = `@ViewBag.apihost/api/user/cancel?token=&loginMark=${user.openid}&data=${data}`;
+                                        $.post(url).done(res => {
+                                            console.log(res)
+                                            if (res.code == 200) {
+                                                showinfo('解绑成功')
+                                            } else {
+
+                                            }
+                                        })
+
+
+                                    }
+                                })
+                            } else {
+                                bootbox.alert(res.info);
+                            }
+                        }
+
+
+
                        // window.location.href = '/Home/QrCode';
                     })
-                   
+
                 }
                 else {
                     form.classList.add('was-validated');
@@ -39,6 +114,28 @@
                 form.classList.remove('was-validated');
             });
         })
+
+        function showinfo(msg) {
+            toastr["info"](msg)
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": false,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": 300,
+                "hideDuration": 100,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000,
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
     </script>
 }
 

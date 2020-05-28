@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kd5X3uON3h/qVFhcKS9gFrnJw/enT/6T83AHdr9ylMOxWPlXl3v4CCoQxclUpWxExuWc0J/xsyrIZxTrDTKEbg==",
+  "dgSpecHash": "ft+QHZaKeLMdtQV2d+1Om9Z42UK4g0VyvVCHSY+Y/ityOoJk28qAkxE5XFP6HMl3xC1qNyASwXKPZAKuGf9lZQ==",
   "success": true,
-  "projectFilePath": "D:\\projects\\ATB\\src\\netcore3.0-mvc\\Senparc.Weixin.MP.Sample.CommonService\\Senparc.Weixin.NetCore3Sample.CommonService.csproj",
+  "projectFilePath": "D:\\github\\weixinsample\\src\\netcore3.0-mvc\\Senparc.Weixin.MP.Sample.CommonService\\Senparc.Weixin.NetCore3Sample.CommonService.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\office\\.nuget\\packages\\binaryformatter\\2.1.4\\binaryformatter.2.1.4.nupkg.sha512",
     "C:\\Users\\office\\.nuget\\packages\\csrediscore\\3.4.0\\csrediscore.3.4.0.nupkg.sha512",

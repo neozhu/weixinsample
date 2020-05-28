@@ -6,229 +6,139 @@
 @section styles
     {
     <style>
-   .timeline {
-  line-height: 1.4em;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-.timeline h1, .timeline h2, .timeline h3, .timeline h4, .timeline h5, .timeline h6 {
-  line-height: inherit;
-}
+        .timeline ul {
+            padding: 1em 0 0 2em;
+            margin: 0;
+            list-style: none;
+            position: relative;
+        }
 
-/*----- TIMELINE ITEM -----*/
-.timeline-item {
-  padding-left: 40px;
-  position: relative;
-}
-.timeline-item:last-child {
-  padding-bottom: 0;
-}
+            .timeline ul::before {
+                content: " ";
+                height: 100%;
+                width: 1px;
+                background-color: #d9d9d9;
+                position: absolute;
+                top: 0;
+                left: 2.5em;
+                z-index: -1;
+            }
 
-/*----- TIMELINE INFO -----*/
-.timeline-info {
-  margin: 0 0 .5em 0;
-  white-space: nowrap;
-}
+        .timeline li div {
+            display: inline-block;
+            margin: 1em 0;
+            vertical-align: top;
+        }
 
-/*----- TIMELINE MARKER -----*/
-.timeline-marker {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 15px;
-}
-.timeline-marker:before {
-  background: #886ab5;
-  border: 3px solid transparent;
-  border-radius: 100%;
-  content: "";
-  display: block;
-  height: 15px;
-  position: absolute;
-  top: 4px;
-  left: 0;
-  width: 15px;
-  transition: background 0.3s ease-in-out, border 0.3s ease-in-out;
-}
-.timeline-marker:after {
-  content: "";
-  width: 3px;
-  background: #CCD5DB;
-  display: block;
-  position: absolute;
-  top: 24px;
-  bottom: 0;
-  left: 6px;
-}
-.timeline-item:last-child .timeline-marker:after {
-  content: none;
-}
+        .timeline .bullet {
+            width: 1em;
+            height: 1em;
+            box-sizing: border-box;
+            border-radius: 50%;
+            background: #fff;
+            z-index: 1;
+            margin-right: 1em;
+        }
 
-.timeline-item:not(.period):hover .timeline-marker:before {
-  background: transparent;
-  border: 3px solid #886ab5;
-}
+            .timeline .bullet.pink {
+                border: 2px solid #f93b69;
+            }
 
-/*----- TIMELINE CONTENT -----*/
-.timeline-content {
-  padding-bottom: 40px;
-}
-.timeline-content p:last-child {
-  margin-bottom: 0;
-}
+            .timeline .bullet.green {
+                border: 2px solid #b0e8e2;
+            }
 
-/*----- TIMELINE PERIOD -----*/
-.period {
-  padding: 0;
-}
-.period .timeline-info {
-  display: none;
-}
-.period .timeline-marker:before {
-  background: transparent;
-  content: "";
-  width: 15px;
-  height: auto;
-  border: none;
-  border-radius: 0;
-  top: 0;
-  bottom: 30px;
-  position: absolute;
-  border-top: 3px solid #CCD5DB;
-  border-bottom: 3px solid #CCD5DB;
-}
-.period .timeline-marker:after {
-  content: "";
-  height: 32px;
-  top: auto;
-}
-.period .timeline-content {
-  padding: 40px 0 70px;
-}
-.period .timeline-title {
-  margin: 0;
-}
+            .timeline .bullet.orange {
+                border: 2px solid #eb8b6e;
+            }
 
-/*----------------------------------------------
-    MOD: TIMELINE SPLIT
-----------------------------------------------*/
-@@media (min-width: 768px) {
-  .timeline-split .timeline, .timeline-centered .timeline {
-    display: table;
-  }
-  .timeline-split .timeline-item, .timeline-centered .timeline-item {
-    display: table-row;
-    padding: 0;
-  }
-  .timeline-split .timeline-info, .timeline-centered .timeline-info,
-  .timeline-split .timeline-marker,
-  .timeline-centered .timeline-marker,
-  .timeline-split .timeline-content,
-  .timeline-centered .timeline-content,
-  .timeline-split .period .timeline-info,
-  .timeline-centered .period .timeline-info {
-    display: table-cell;
-    vertical-align: top;
-  }
-  .timeline-split .timeline-marker, .timeline-centered .timeline-marker {
-    position: relative;
-  }
-  .timeline-split .timeline-content, .timeline-centered .timeline-content {
-    padding-left: 30px;
-  }
-  .timeline-split .timeline-info, .timeline-centered .timeline-info {
-    padding-right: 30px;
-  }
-  .timeline-split .period .timeline-title, .timeline-centered .period .timeline-title {
-    position: relative;
-    left: -45px;
-  }
-}
+        .timeline .time {
+            width: 20%;
+            font-size: 0.75em;
+            padding-top: 0.25em;
+        }
 
-/*----------------------------------------------
-    MOD: TIMELINE CENTERED
-----------------------------------------------*/
-@@media (min-width: 992px) {
-  .timeline-centered,
-  .timeline-centered .timeline-item,
-  .timeline-centered .timeline-info,
-  .timeline-centered .timeline-marker,
-  .timeline-centered .timeline-content {
-    display: block;
-    margin: 0;
-    padding: 0;
-  }
-  .timeline-centered .timeline-item {
-    padding-bottom: 40px;
-    overflow: hidden;
-  }
-  .timeline-centered .timeline-marker {
-    position: absolute;
-    left: 50%;
-    margin-left: -7.5px;
-  }
-  .timeline-centered .timeline-info,
-  .timeline-centered .timeline-content {
-    width: 50%;
-  }
-  .timeline-centered > .timeline-item:nth-child(odd) .timeline-info {
-    float: left;
-    text-align: right;
-    padding-right: 30px;
-  }
-  .timeline-centered > .timeline-item:nth-child(odd) .timeline-content {
-    float: right;
-    text-align: left;
-    padding-left: 30px;
-  }
-  .timeline-centered > .timeline-item:nth-child(even) .timeline-info {
-    float: right;
-    text-align: left;
-    padding-left: 30px;
-  }
-  .timeline-centered > .timeline-item:nth-child(even) .timeline-content {
-    float: left;
-    text-align: right;
-    padding-right: 30px;
-  }
-  .timeline-centered > .timeline-item.period .timeline-content {
-    float: none;
-    padding: 0;
-    width: 100%;
-    text-align: center;
-  }
-  .timeline-centered .timeline-item.period {
-    padding: 50px 0 90px;
-  }
-  .timeline-centered .period .timeline-marker:after {
-    height: 30px;
-    bottom: 0;
-    top: auto;
-  }
-  .timeline-centered .period .timeline-title {
-    left: auto;
-  }
-}
+        .timeline .desc {
+            width: 50%;
+        }
 
-/*----------------------------------------------
-    MOD: MARKER OUTLINE
-----------------------------------------------*/
-.marker-outline .timeline-marker:before {
-  background: transparent;
-  border-color: #886ab5;
-}
-.marker-outline .timeline-item:hover .timeline-marker:before {
-  background: #886ab5;
-}
+        .timeline h3 {
+            font-size: 0.9em;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .timeline h4 {
+            margin: 0;
+            font-size: 0.7em;
+            font-weight: 400;
+            color: #808080;
+        }
+
+        .timeline .people img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .credits,
+        .video {
+            position: absolute;
+            bottom: 10px;
+            color: #808080;
+            font-size: 100%;
+            text-decoration: underline;
+        }
+
+        .credits {
+            left: 10px;
+        }
+
+        .video {
+            right: 10px;
+        }
     </style>
 }
 @section scripts
     {
     <script>
+        var vehicle_no = localStorage.getItem("vehicle_no");
+        var vehicle_color = localStorage.getItem("vehicle_color");
+        var openid = localStorage.getItem("openid");
+        var token = localStorage.getItem("token");
 
+        var params = new window.URLSearchParams(window.location.search);
+        console.log(params.get('etps'));
+        const etps = params.get('etps');
+        query(token, openid, etps)
+        async function query(token, openid, etps) {
+            var dialog = bootbox.dialog({
+                message: '<p class="text-center mb-0"><i class="fal fa-spin fa-spinner"></i> 请等待...</p>',
+                closeButton: false
+            });
+            var input = JSON.stringify({ ETPS_PREENT_NO: etps });
+            var url = `@ViewBag.apihost/api/passport/getinfo?token=${token}&loginMark=${openid}&data=${input}`;
+            var res = await $.post(url);
+
+            console.log(res);
+            if (res.code == 200) {
+                $('.timeline ul').empty();
+                res.data.passport.head[0].wwf.forEach(item => {
+                    const html = `<li>
+                            <div class="bullet green"></div>
+                            <div class="time">${item.OPER_DATE}</div>
+                            <div class="desc">
+                                <h3>${item.OPER_COMMENT}</h3>
+                                <h4>${item.OPER_PERSON}</h4>
+                            </div>
+                        </li>`;
+                    $('.timeline ul').append(html)
+                })
+            }
+            setTimeout(() => {
+                dialog.modal('hide');
+            }, 500)
+        };
     </script>
 }
 
@@ -245,68 +155,46 @@
 
             </div>
             <div class="card-body pl-5">
-                <ul class="timeline">
-                    <li class="timeline-item">
-                        <div class="timeline-info">
-                            <span class="d-block text-truncate text-muted fs-xs mt-1">12:35</span>
-                        </div>
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="text-dark fw-500">二维码生成</div>
-
-                        </div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-info">
-                            <span class="d-block text-truncate text-muted fs-xs mt-1">12:35</span>
-                        </div>
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="text-dark fw-500">车辆入主卡口</div>
-
-                        </div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-info">
-                            <span class="d-block text-truncate text-muted fs-xs mt-1">12:35</span>
-                        </div>
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="text-dark fw-500">车辆入场站</div>
-
-                        </div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-info">
-                            <span class="d-block text-truncate text-muted fs-xs mt-1">12:35</span>
-                        </div>
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="text-dark fw-500">车辆出场站</div>
-
-                        </div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-info">
-                            <span class="d-block text-truncate text-muted fs-xs mt-1">12:35</span>
-                        </div>
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="text-dark fw-500">车辆入内卡口</div>
-
-                        </div>
-                    </li>
-                    <li class="timeline-item">
-                        <div class="timeline-info">
-                            <span class="d-block text-truncate text-muted fs-xs mt-1">12:35</span>
-                        </div>
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <div class="text-dark fw-500">车辆出主卡口</div>
-
-                        </div>
-                    </li>
-                </ul>
+                <div class="timeline">
+                    <ul>
+                        <li>
+                            <div class="bullet pink"></div>
+                            <div class="time">5pm</div>
+                            <div class="desc">
+                                <h3>New Icon</h3>
+                                <h4>Mobile App</h4>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet green"></div>
+                            <div class="time">3 - 4pm</div>
+                            <div class="desc">
+                                <h3>Design Stand Up</h3>
+                                <h4>Hangouts</h4>
+                                <div class="people">
+                                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/ashleyford/128.jpg" alt="" />
+                                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg" alt="" />
+                                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/mattsince87/128.jpg" alt="" />
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet orange"></div>
+                            <div class="time">12pm</div>
+                            <div class="desc">
+                                <h3>Lunch Break</h3>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet green"></div>
+                            <div class="time">9 - 11am</div>
+                            <div class="desc">
+                                <h3>Finish Home Screen</h3>
+                                <h4>Web App</h4>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
 

@@ -10886,11 +10886,11 @@
   "project": {
     "version": "5.404.0",
     "restore": {
-      "projectUniqueName": "D:\\projects\\ATB\\src\\netcore3.0-mvc\\Senparc.Weixin.Sample.NetCore3\\Senparc.Weixin.Sample.NetCore3.csproj",
+      "projectUniqueName": "D:\\github\\weixinsample\\src\\netcore3.0-mvc\\Senparc.Weixin.Sample.NetCore3\\Senparc.Weixin.Sample.NetCore3.csproj",
       "projectName": "Senparc.Weixin.Sample.NetCore3",
-      "projectPath": "D:\\projects\\ATB\\src\\netcore3.0-mvc\\Senparc.Weixin.Sample.NetCore3\\Senparc.Weixin.Sample.NetCore3.csproj",
+      "projectPath": "D:\\github\\weixinsample\\src\\netcore3.0-mvc\\Senparc.Weixin.Sample.NetCore3\\Senparc.Weixin.Sample.NetCore3.csproj",
       "packagesPath": "C:\\Users\\office\\.nuget\\packages\\",
-      "outputPath": "D:\\projects\\ATB\\src\\netcore3.0-mvc\\Senparc.Weixin.Sample.NetCore3\\obj\\",
+      "outputPath": "D:\\github\\weixinsample\\src\\netcore3.0-mvc\\Senparc.Weixin.Sample.NetCore3\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\office\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -10906,8 +10906,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\projects\\ATB\\src\\netcore3.0-mvc\\Senparc.Weixin.MP.Sample.CommonService\\Senparc.Weixin.NetCore3Sample.CommonService.csproj": {
-              "projectPath": "D:\\projects\\ATB\\src\\netcore3.0-mvc\\Senparc.Weixin.MP.Sample.CommonService\\Senparc.Weixin.NetCore3Sample.CommonService.csproj"
+            "D:\\github\\weixinsample\\src\\netcore3.0-mvc\\Senparc.Weixin.MP.Sample.CommonService\\Senparc.Weixin.NetCore3Sample.CommonService.csproj": {
+              "projectPath": "D:\\github\\weixinsample\\src\\netcore3.0-mvc\\Senparc.Weixin.MP.Sample.CommonService\\Senparc.Weixin.NetCore3Sample.CommonService.csproj"
             }
           }
         }

@@ -4,11 +4,115 @@
     ViewBag.Title = "";
 
 }
+@section styles{
+    <link href="~/css/notifications/toastr/toastr.css" rel="stylesheet" />
+    <style>
+        .timeline ul {
+            padding: 1em 0 0 2em;
+            margin: 0;
+            list-style: none;
+            position: relative;
+        }
+
+            .timeline ul::before {
+                content: " ";
+                height: 100%;
+                width: 1px;
+                background-color: #d9d9d9;
+                position: absolute;
+                top: 0;
+                left: 2.5em;
+                z-index: -1;
+            }
+
+        .timeline li div {
+            display: inline-block;
+            margin: 1em 0;
+            vertical-align: top;
+        }
+
+        .timeline .bullet {
+            width: 1em;
+            height: 1em;
+            box-sizing: border-box;
+            border-radius: 50%;
+            background: #fff;
+            z-index: 1;
+            margin-right: 1em;
+        }
+
+            .timeline .bullet.pink {
+                border: 2px solid #f93b69;
+            }
+
+            .timeline .bullet.green {
+                border: 2px solid #b0e8e2;
+            }
+
+            .timeline .bullet.orange {
+                border: 2px solid #eb8b6e;
+            }
+
+        .timeline .time {
+            width: 30%;
+            font-size: 0.75em;
+            padding-top: 0.25em;
+        }
+
+        .timeline .desc {
+            width: 50%;
+        }
+
+        .timeline h3 {
+            font-size: 0.9em;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .timeline h4 {
+            margin: 0;
+            font-size: 0.7em;
+            font-weight: 400;
+            color: #808080;
+        }
+
+        .timeline .people img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .credits,
+        .video {
+            position: absolute;
+            bottom: 10px;
+            color: #808080;
+            font-size: 100%;
+            text-decoration: underline;
+        }
+
+        .credits {
+            left: 10px;
+        }
+
+        .video {
+            right: 10px;
+        }
+    </style>
+}
 @section scripts
     {
+    <script src="~/js/moment-with-locales.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+    <script src="~/js/notifications/toastr/toastr.js"></script>
     <script src="~/lib/jquery.serializeJSON/jquery.serializejson.min.js"></script>
     <script>
+        const statusarray = { APLY:'提交审核', APRV: '审核通过' ,  APL: '海关提交审核' ,  APR: '海关审核通过' };
+        var vehicle_no = localStorage.getItem("vehicle_no");
+        var vehicle_color = localStorage.getItem("vehicle_color");
+        var openid = localStorage.getItem("openid");
+        var token = localStorage.getItem("token");
+        var queryresult = [];
         $('#querybtn').on('click', function () {
             var form = document.getElementById("queryform");
             if (form.reportValidity()) {
@@ -16,16 +120,8 @@
                 console.log(input)
                 if (input.cno || input.bno) {
                     console.log(input);
+                    query(token, openid, input.cno, input.ctype, input.bno);
 
-                    var dialog = bootbox.dialog({
-                        message: '<div class="text-center"><i class="fal fa-spinner fa-pulse fa-lg mr-1"></i> Loading...</div>',
-                        closeButton: false
-                    })
-
-                    setTimeout(() => {
-                        dialog.modal('hide')
-                        $('#resultdiv').show();
-                    }, 1000)
                 } else {
                     bootbox.alert(
                         {
@@ -35,7 +131,7 @@
                 }
             }
             else {
-                form.classList.add('was-validated');
+                //form.classList.add('was-validated');
             }
         });
         $('#scanbtn').on('click', function () {
@@ -44,13 +140,151 @@
         $('#restbtn').on('click', function () {
             var form = document.getElementById("queryform");
             form.reset();
-            form.classList.remove('was-validated');
+            //form.classList.remove('was-validated');
             $('#resultdiv').hide();
         });
         $(() => {
             $('#resultdiv').hide();
-        })
 
+
+            if (token && openid) {
+                $('#cno').val(vehicle_no);
+                $('#ctype').val(vehicle_color);
+            } else {
+                showinfo('用户没有绑定,清先绑定账号')
+                window.location.href = '/Home/BindUser';
+            }
+        })
+        async function query(token, openid, veh,color,gpno) {
+            var dialog = bootbox.dialog({
+                message: '<p class="text-center mb-0"><i class="fal fa-spin fa-spinner"></i> 请等待...</p>',
+                closeButton: false
+            });
+            var input = JSON.stringify({ VEHICLE_NO: veh, VEHICLE_COLOR: color, PASSPORT_NO: gpno });
+            var url = `@ViewBag.apihost/api/passport/getinfoToD?token=${token}&loginMark=${openid}&data=${input}`;
+            var res = await $.post(url);
+            console.log(res);
+            setTimeout(() => {
+                dialog.modal('hide');
+            }, 500)
+            if (res.code == 410) {
+                showinfo('登录过期')
+                localStorage.setItem("token", '');
+                window.location.href = '/Home/BindUser';
+            } else if (res.code == 200) {
+                var ic = res.data.passport.head[0].VEHICLE_IC_NO;
+                var veh = res.data.passport.head[0].VEHICLE_NO;
+                var vehcolor = res.data.passport.head[0].VEHICLE_COLOR;
+                var passno = res.data.passport.head[0].PASSPORT_NO;
+                localStorage.setItem("vehicle_no", veh);
+                localStorage.setItem("vehicle_color", vehcolor);
+                localStorage.setItem("passport_no", passno);
+                localStorage.setItem("ic", ic);
+                showinfo('获取数据成功');
+                showresult(res.data.passport.head);
+                queryresult = res.data.passport.head;
+            } else {
+                bootbox.alert(res.info);
+                localStorage.setItem("vehicle_no", veh);
+                localStorage.setItem("vehicle_color", '');
+                localStorage.setItem("passport_no", '');
+                localStorage.setItem("ic", '');
+                queryresult = [];
+                $('#resultdiv').hide();
+            }
+            return res;
+        }
+        function showresult(items) {
+            $('#resultdiv').show();
+            $('#queryresult').empty();
+            items.forEach(item => {
+                let bind = '';
+                if (item.BIND_TYPECD == '1') {
+                    bind = '一车多票';
+                } else if (item.BIND_TYPECD == '2') {
+                    bind = '一车一票';
+                } else {
+                    bind = '一票多车';
+                }
+
+                var html = `<div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="oliver kopyov">
+            <div class="card-body pb-0 px-4 collapse show">
+                <div class="d-flex align-items-center demo-h-spacing py-2">
+                    <div class="d-inline-flex align-items-center text-dark">
+                        核放单号:
+                    </div>
+                    <a href="javascript:showlog('${item.ETPS_PREENT_NO}')" class="text-dark fw-500">
+                        ${item.PASSPORT_NO}
+                    </a>
+                </div>
+                <div class="d-flex align-items-center demo-h-spacing py-2">
+                    <div class="d-inline-flex align-items-center text-dark">
+                        进出标志:
+                    </div>
+                    <a href="javascript:void(0);" class="text-dark fw-500">
+                        ${item.IO_TYPECD=='1'?'进口':'出口'}
+                    </a>
+                </div>
+                <div class="d-flex align-items-center demo-h-spacing py-2">
+                    <div class="d-inline-flex align-items-center text-dark">
+                        车牌&nbsp;&nbsp;&nbsp;号:
+                    </div>
+                    <a href="javascript:void(0);" class="text-dark fw-500">
+                        ${item.VEHICLE_NO}
+                    </a>
+                </div>
+                <div class="d-flex align-items-center demo-h-spacing py-2">
+                    <div class="d-inline-flex align-items-center text-dark">
+                        绑定类型:
+                    </div>
+                    <a href="javascript:void(0);" class="text-dark fw-500">
+                        ${bind}
+                    </a>
+                </div>
+            </div>
+        </div>`;
+                $('#queryresult').append(html);
+            });
+        }
+        function showinfo(msg) {
+            toastr["info"](msg)
+
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": true,
+                "progressBar": false,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": 300,
+                "hideDuration": 100,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000,
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        }
+        function showlog(id) {
+            console.log(id)
+            var head = queryresult.filter(item => item.ETPS_PREENT_NO == id);
+            console.log(head)
+            $('.timeline ul').empty();
+            head[0].wwf.forEach(item => {
+                const html = `<li>
+                            <div class="bullet green"></div>
+                            <div class="time">${moment(item.OPER_DATE).format('MM-DD HH:mm')}</div>
+                            <div class="desc">
+                                <h3>${statusarray[item.OPER_TYPE]||''}</h3>
+                                <h4>${item.OPER_PERSON||''}</h4>
+                            </div>
+                        </li>`;
+                $('.timeline ul').append(html)
+            });
+            $('.default-example-modal-right-sm').modal('toggle');
+        }
     </script>
     <script>
         wx.config({
@@ -162,8 +396,8 @@
                                    id="cno">
                             <div class="input-group-append">
                                 <select class="form-control rounded-0 border-top-0 border-left-0 border-right-0 px-0 bg-transparent" name="ctype" id="ctype">
-                                    <option value="1" selected>蓝牌</option>
-                                    <option value="2">黄牌</option>
+                                    <option value="1" selected>黄牌</option>
+                                    <option value="2">蓝牌</option>
                                     <option value="3">绿牌</option>
                                     <option value="4">白牌</option>
                                 </select>
@@ -192,42 +426,67 @@
     </div>
 </div>
 <div class="row" id="resultdiv">
-    <div class="col-xl-12">
-        <div id="c_1" class="card border shadow-0 mb-g shadow-sm-hover" data-filter-tags="oliver kopyov">
+    <div class="col-xl-12" id="queryresult">
 
-            <div class="card-body pb-0 px-4 collapse show">
-                <div class="d-flex align-items-center demo-h-spacing py-2">
-                    <div class="d-inline-flex align-items-center text-dark">
-                        核放单号:
-                    </div>
-                    <a asp-controller="Home" asp-action="QueryResult" class="text-dark fw-500">
-                        000000000001
-                    </a>
+         
+    </div>
+</div>
+
+<!-- Modal Right Small -->
+<div class="modal fade default-example-modal-right-sm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-right modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4">物流状态</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="timeline">
+                    <ul>
+                        <li>
+                            <div class="bullet pink"></div>
+                            <div class="time">5pm</div>
+                            <div class="desc">
+                                <h3>New Icon</h3>
+                                <h4>Mobile App</h4>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet green"></div>
+                            <div class="time">3 - 4pm</div>
+                            <div class="desc">
+                                <h3>Design Stand Up</h3>
+                                <h4>Hangouts</h4>
+                                <div class="people">
+                                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/ashleyford/128.jpg" alt="" />
+                                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg" alt="" />
+                                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/mattsince87/128.jpg" alt="" />
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet orange"></div>
+                            <div class="time">12pm</div>
+                            <div class="desc">
+                                <h3>Lunch Break</h3>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="bullet green"></div>
+                            <div class="time">9 - 11am</div>
+                            <div class="desc">
+                                <h3>Finish Home Screen</h3>
+                                <h4>Web App</h4>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
-                <div class="d-flex align-items-center demo-h-spacing py-2">
-                    <div class="d-inline-flex align-items-center text-dark">
-                        进出标志:
-                    </div>
-                    <a href="javascript:void(0);" class="text-dark fw-500">
-                        进口
-                    </a>
-                </div>
-                <div class="d-flex align-items-center demo-h-spacing py-2">
-                    <div class="d-inline-flex align-items-center text-dark">
-                        车牌&nbsp;&nbsp;&nbsp;号:
-                    </div>
-                    <a href="javascript:void(0);" class="text-dark fw-500">
-                        苏EX39881
-                    </a>
-                </div>
-                <div class="d-flex align-items-center demo-h-spacing py-2">
-                    <div class="d-inline-flex align-items-center text-dark">
-                        绑定类型:
-                    </div>
-                    <a href="javascript:void(0);" class="text-dark fw-500">
-                        一单多车
-                    </a>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+
             </div>
         </div>
     </div>
