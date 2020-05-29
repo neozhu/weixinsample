@@ -399,7 +399,7 @@ namespace Senparc.Weixin.Sample.NetCore3
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=BindUser}/{id?}");
             });
 
             //使用 SignalR（.NET Core 3.0）                                                      -- DPBMARK WebSocket

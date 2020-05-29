@@ -15,7 +15,9 @@ namespace Senparc.Weixin.Sample.NetCore3
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup<Startup>()
+                    .UseUrls("http://*:5000");
                 }).UseServiceProviderFactory(new SenparcServiceProviderFactory());
+            
     }
 }

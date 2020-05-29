@@ -23,7 +23,7 @@
         //var qrcode = new QRCode("qrcode", {
         
         //});
-        $(async () => {
+        $(() => {
             
             var vehicle_no = localStorage.getItem("vehicle_no");
             //var ic = localStorage.getItem("ic");
@@ -51,19 +51,17 @@
                                     className: 'btn-default'
                                 }
                             },
-                            callback: async function (result) {
+                            callback: function (result) {
                                 console.log(result);
                                 if (result) {
-                                    var res = await getvehicel(token, openid, result);
-                                    console.log(res)
+                                    getvehicel(token, openid, result);
+                               
                                      
                                 }
                             }
                         });
                 } else {
-                    var res = await getvehicel(token, openid, vehicle_no);
-
-                   
+                   getvehicel(token, openid, vehicle_no);
                 }
                
             } else {
@@ -90,11 +88,12 @@
                                 className: 'btn-default'
                             }
                         },
-                        callback: async function (result) {
+                        callback:  function (result) {
                             console.log(result);
+                       
                             if (result) {
-                                var res = await getvehicel(token, openid, result);
-                                console.log(res)
+                               getvehicel(token, openid, result);
+                            
                                  
                             }
                         }
@@ -104,43 +103,44 @@
 
 
         })
-        async function getvehicel(token, openid, veh) {
+        function getvehicel(token, openid, vehicle_no) {
             var dialog = bootbox.dialog({
                 message: '<p class="text-center mb-0"><i class="fal fa-spin fa-spinner"></i> 请等待...</p>',
                 closeButton: false
             });
-            var input = JSON.stringify({ VEHICLE_NO: veh, VEHICLE_COLOR: "1" });
+    
+            var input = JSON.stringify({ VEHICLE_NO: vehicle_no, VEHICLE_COLOR: "1" });
             var url = `@ViewBag.apihost/api/passport/getinfoToD?token=${token}&loginMark=${openid}&data=${input}`;
-            var res = await $.post(url);
-            console.log(res);
-            setTimeout(() => {
-                dialog.modal('hide');
-            }, 500)
-            if (res.code == 410) {
-                showinfo('登录过期')
-                localStorage.setItem("token", '');
-                window.location.href = '/Home/BindUser';
-            } else if (res.code == 200) {
-                var ic = res.data.passport.head[0].VEHICLE_IC_NO;
-                var veh = res.data.passport.head[0].VEHICLE_NO;
-                var vehcolor = res.data.passport.head[0].VEHICLE_COLOR;
-                $('#title').text(`卡号:${ic}`);
-                $('#title1').text(`车牌号:${veh}`);
-                showqrcode(ic);
-                localStorage.setItem("vehicle_no", veh);
-                localStorage.setItem("vehicle_color", vehcolor);
-                localStorage.setItem("ic", ic);
-                showinfo('车牌绑定成功')
-            } else {
-                bootbox.alert(res.info);
-                localStorage.setItem("vehicle_no", veh);
-                localStorage.setItem("vehicle_color", '');
-                localStorage.setItem("ic", '');
-                $('#title').text(`卡号:空`);
-                $('#title1').text(`车牌号:空`);
-                showqrcode('');
-            }  
-            return res;
+            $.post(url).done(res => {
+                setTimeout(() => {
+                    dialog.modal('hide');
+                }, 500)
+                if (res.code == 410) {
+                    showinfo('登录过期')
+                    localStorage.setItem("token", '');
+                    window.location.href = '/Home/BindUser';
+                } else if (res.code == 200) {
+                    var ic = res.data.passport.head[0].VEHICLE_IC_NO;
+                    var veh = res.data.passport.head[0].VEHICLE_NO;
+                    var vehcolor = res.data.passport.head[0].VEHICLE_COLOR;
+                    $('#title').text(`卡号:${ic}`);
+                    $('#title1').text(`车牌号:${veh}`);
+                    showqrcode(ic);
+                    localStorage.setItem("vehicle_no", veh);
+                    localStorage.setItem("vehicle_color", vehcolor);
+                    localStorage.setItem("ic", ic);
+                    showinfo('车牌绑定成功')
+                } else {
+                    bootbox.alert(res.info);
+                    localStorage.setItem("vehicle_no", veh);
+                    localStorage.setItem("vehicle_color", '');
+                    localStorage.setItem("ic", '');
+                    $('#title').text(`卡号:空`);
+                    $('#title1').text(`车牌号:空`);
+                    showqrcode('');
+                }
+            });
+            
         } 
         function showqrcode(str) {
             //qrcode.makeCode(str);

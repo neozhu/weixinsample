@@ -1,0 +1,10 @@
+D:\github\weixinsample\src\netcore3.0-mvc\Senparc.Weixin.MP.Sample.CommonService\bin\Release\netcoreapp3.1\Senparc.Weixin.MP.Sample.CommonService.dll.config
+D:\github\weixinsample\src\netcore3.0-mvc\Senparc.Weixin.MP.Sample.CommonService\bin\Release\netcoreapp3.1\Senparc.Weixin.MP.Sample.CommonService.deps.json
+D:\github\weixinsample\src\netcore3.0-mvc\Senparc.Weixin.MP.Sample.CommonService\bin\Release\netcoreapp3.1\Senparc.Weixin.MP.Sample.CommonService.dll
+D:\github\weixinsample\src\netcore3.0-mvc\Senparc.Weixin.MP.Sample.CommonService\bin\Release\netcoreapp3.1\Senparc.Weixin.MP.Sample.CommonService.pdb
+D:\github\weixinsample\src\netcore3.0-mvc\Senparc.Weixin.MP.Sample.CommonService\obj\Release\netcoreapp3.1\Senparc.Weixin.NetCore3Sample.CommonService.csprojAssemblyReference.cache
+D:\github\weixinsample\src\netcore3.0-mvc\Senparc.Weixin.MP.Sample.CommonService\obj\Release\netcoreapp3.1\Senparc.Weixin.NetCore3Sample.CommonService.AssemblyInfoInputs.cache
+D:\github\weixinsample\src\netcore3.0-mvc\Senparc.Weixin.MP.Sample.CommonService\obj\Release\netcoreapp3.1\Senparc.Weixin.NetCore3Sample.CommonService.AssemblyInfo.cs
+D:\github\weixinsample\src\netcore3.0-mvc\Senparc.Weixin.MP.Sample.CommonService\obj\Release\netcoreapp3.1\Senparc.Weixin.NetCore3Sample.CommonService.csproj.CoreCompileInputs.cache
+D:\github\weixinsample\src\netcore3.0-mvc\Senparc.Weixin.MP.Sample.CommonService\obj\Release\netcoreapp3.1\Senparc.Weixin.MP.Sample.CommonService.dll
+D:\github\weixinsample\src\netcore3.0-mvc\Senparc.Weixin.MP.Sample.CommonService\obj\Release\netcoreapp3.1\Senparc.Weixin.MP.Sample.CommonService.pdb

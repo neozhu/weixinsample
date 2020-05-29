@@ -120,7 +120,10 @@
                 console.log(input)
                 if (input.cno || input.bno) {
                     console.log(input);
-                    query(token, openid, input.cno, input.ctype, input.bno);
+                    const veh = input.cno;
+                    const color = input.ctype;
+                    const gpno = input.bno;
+                    query(token, openid, veh, color, gpno);
 
                 } else {
                     bootbox.alert(
@@ -145,8 +148,6 @@
         });
         $(() => {
             $('#resultdiv').hide();
-
-
             if (token && openid) {
                 $('#cno').val(vehicle_no);
                 $('#ctype').val(vehicle_color);
@@ -155,44 +156,47 @@
                 window.location.href = '/Home/BindUser';
             }
         })
-        async function query(token, openid, veh,color,gpno) {
+  
+        function query(token, openid, veh, color, gpno) {
+            
             var dialog = bootbox.dialog({
                 message: '<p class="text-center mb-0"><i class="fal fa-spin fa-spinner"></i> 请等待...</p>',
                 closeButton: false
             });
             var input = JSON.stringify({ VEHICLE_NO: veh, VEHICLE_COLOR: color, PASSPORT_NO: gpno });
             var url = `@ViewBag.apihost/api/passport/getinfoToD?token=${token}&loginMark=${openid}&data=${input}`;
-            var res = await $.post(url);
-            console.log(res);
-            setTimeout(() => {
-                dialog.modal('hide');
-            }, 500)
-            if (res.code == 410) {
-                showinfo('登录过期')
-                localStorage.setItem("token", '');
-                window.location.href = '/Home/BindUser';
-            } else if (res.code == 200) {
-                var ic = res.data.passport.head[0].VEHICLE_IC_NO;
-                var veh = res.data.passport.head[0].VEHICLE_NO;
-                var vehcolor = res.data.passport.head[0].VEHICLE_COLOR;
-                var passno = res.data.passport.head[0].PASSPORT_NO;
-                localStorage.setItem("vehicle_no", veh);
-                localStorage.setItem("vehicle_color", vehcolor);
-                localStorage.setItem("passport_no", passno);
-                localStorage.setItem("ic", ic);
-                showinfo('获取数据成功');
-                showresult(res.data.passport.head);
-                queryresult = res.data.passport.head;
-            } else {
-                bootbox.alert(res.info);
-                localStorage.setItem("vehicle_no", veh);
-                localStorage.setItem("vehicle_color", '');
-                localStorage.setItem("passport_no", '');
-                localStorage.setItem("ic", '');
-                queryresult = [];
-                $('#resultdiv').hide();
-            }
-            return res;
+            $.post(url).done(res => {
+                console.log(res);
+                setTimeout(() => {
+                    dialog.modal('hide');
+                }, 500)
+                if (res.code == 410) {
+                    showinfo('登录过期')
+                    localStorage.setItem("token", '');
+                    window.location.href = '/Home/BindUser';
+                } else if (res.code == 200) {
+                    var ic = res.data.passport.head[0].VEHICLE_IC_NO;
+                    var veh = res.data.passport.head[0].VEHICLE_NO;
+                    var vehcolor = res.data.passport.head[0].VEHICLE_COLOR;
+                    var passno = res.data.passport.head[0].PASSPORT_NO;
+                    localStorage.setItem("vehicle_no", veh);
+                    localStorage.setItem("vehicle_color", vehcolor);
+                    localStorage.setItem("passport_no", passno);
+                    localStorage.setItem("ic", ic);
+                    showinfo('获取数据成功');
+                    showresult(res.data.passport.head);
+                    queryresult = res.data.passport.head;
+                } else {
+                    bootbox.alert(res.info);
+                    localStorage.setItem("vehicle_no", veh);
+                    localStorage.setItem("vehicle_color", '');
+                    localStorage.setItem("passport_no", '');
+                    localStorage.setItem("ic", '');
+                    queryresult = [];
+                    $('#resultdiv').hide();
+                }
+            });
+            
         }
         function showresult(items) {
             $('#resultdiv').show();
@@ -391,7 +395,6 @@
                         <div class="input-group">
                             <input type="text" class="form-control  rounded-0 border-top-0 border-left-0 border-right-0 px-0 bg-transparent"
                                    placeholder="车牌号"
-                                   pattern="[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}"
                                    name="cno"
                                    id="cno">
                             <div class="input-group-append">
@@ -445,34 +448,7 @@
             <div class="modal-body">
                 <div class="timeline">
                     <ul>
-                        <li>
-                            <div class="bullet pink"></div>
-                            <div class="time">5pm</div>
-                            <div class="desc">
-                                <h3>New Icon</h3>
-                                <h4>Mobile App</h4>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="bullet green"></div>
-                            <div class="time">3 - 4pm</div>
-                            <div class="desc">
-                                <h3>Design Stand Up</h3>
-                                <h4>Hangouts</h4>
-                                <div class="people">
-                                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/ashleyford/128.jpg" alt="" />
-                                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/kfriedson/128.jpg" alt="" />
-                                    <img src="https://s3.amazonaws.com/uifaces/faces/twitter/mattsince87/128.jpg" alt="" />
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="bullet orange"></div>
-                            <div class="time">12pm</div>
-                            <div class="desc">
-                                <h3>Lunch Break</h3>
-                            </div>
-                        </li>
+                        
                         <li>
                             <div class="bullet green"></div>
                             <div class="time">9 - 11am</div>
