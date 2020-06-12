@@ -116,8 +116,6 @@
         })
 
         function showinfo(msg) {
-            toastr["info"](msg)
-
             toastr.options = {
                 "closeButton": false,
                 "debug": false,
@@ -128,13 +126,14 @@
                 "onclick": null,
                 "showDuration": 300,
                 "hideDuration": 100,
-                "timeOut": 5000,
+                "timeOut": 2000,
                 "extendedTimeOut": 1000,
                 "showEasing": "swing",
                 "hideEasing": "linear",
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             }
+            toastr["info"](msg)
         }
     </script>
 }

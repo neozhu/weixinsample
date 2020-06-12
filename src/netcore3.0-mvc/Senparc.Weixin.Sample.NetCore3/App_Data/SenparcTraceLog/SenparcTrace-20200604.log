@@ -1,0 +1,116 @@
+[[[系统日志]]]
+[2020/06/04 09:27:10.0882]
+[线程：1]
+系统启动
+
+[[[自动注册扩展缓存完成]]]
+[2020/06/04 09:27:10.6899]
+[线程：1]
+注册总用时：594.7083ms
+自动扫描程序集：162个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2020/06/04 09:27:10.6960]
+[线程：1]
+微信扩展缓存注册总用时：0.1340ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[接口调用]]]
+[2020/06/04 09:37:51.8865]
+[线程：23]
+	URL：https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=33_Vm3LZHpVAWDI0Z2UA_2xDQrWrA_X-wvSV0jHusuSfRdNclRUbIs3q3D6V0DDbHzkb-KfS2iZFY_24tIFrj8M6lRdE28E7PqFYOZ4x-K92t8UsI7EyNzx7iUFoKlHwVp18pSmxM68rGL393u2NLFdAIACAU&type=jsapi
+	Result：
+{"errcode":0,"errmsg":"ok","ticket":"sM4AOVdWfPE4DxkXGEs8VAPfjVnjEBXQx6VIkdFABOXSPASdGu5aS-2yqmQRi2JBaooDjFJBjnVKx8s5ChnM2Q","expires_in":7200}
+
+[[[系统日志]]]
+[2020/06/04 14:18:51.7046]
+[线程：1]
+系统启动
+
+[[[自动注册扩展缓存完成]]]
+[2020/06/04 14:18:52.4971]
+[线程：1]
+注册总用时：785.8287ms
+自动扫描程序集：162个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2020/06/04 14:18:52.5031]
+[线程：1]
+微信扩展缓存注册总用时：0.1397ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[系统日志]]]
+[2020/06/04 14:59:26.8278]
+[线程：1]
+系统启动
+
+[[[自动注册扩展缓存完成]]]
+[2020/06/04 14:59:27.3471]
+[线程：1]
+注册总用时：512.7538ms
+自动扫描程序集：162个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2020/06/04 14:59:27.3533]
+[线程：1]
+微信扩展缓存注册总用时：0.1427ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[系统日志]]]
+[2020/06/04 15:22:15.1553]
+[线程：1]
+系统启动
+
+[[[自动注册扩展缓存完成]]]
+[2020/06/04 15:22:15.5959]
+[线程：1]
+注册总用时：433.4462ms
+自动扫描程序集：162个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2020/06/04 15:22:15.6016]
+[线程：1]
+微信扩展缓存注册总用时：0.1362ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[接口调用]]]
+[2020/06/04 15:22:24.9815]
+[线程：14]
+	URL：https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=33_qYdpt7I2tIBZUD2xXlg9UrrsWD5RF0ADMEKDil5yOnbz4zdIoJAcWE8aou6h0LUL33svOHBb3eBItXnQt5Hu7YItGRVaFTsbxgLIb-Wg5Da2WAvQ-xp5v0tq9TBbBzbukLmiHqa5PUjFuxzQHYEdADANEK&type=jsapi
+	Result：
+{"errcode":0,"errmsg":"ok","ticket":"sM4AOVdWfPE4DxkXGEs8VAPfjVnjEBXQx6VIkdFABOUkrLY9icp_gbDw0_8lKxWkG3X3vx8zktmfuzn6iHRtog","expires_in":7200}
+
+[[[系统日志]]]
+[2020/06/04 15:55:34.5950]
+[线程：1]
+系统启动
+
+[[[自动注册扩展缓存完成]]]
+[2020/06/04 15:55:35.0656]
+[线程：1]
+注册总用时：449.5075ms
+自动扫描程序集：162个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2020/06/04 15:55:35.0714]
+[线程：1]
+微信扩展缓存注册总用时：0.1344ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[接口调用]]]
+[2020/06/04 15:55:40.0845]
+[线程：12]
+	URL：https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=34_jOgXbJR1vsWIfTifNSpz5qf2Ik2ZoxA22bc0R6oGPo7WMLpve9Iz5P3C1A2Uzd3xezIDfGB0GKGD7XLvuzuTTYF4tjWs19xXX6dmPtU0_3WYitraLEjQhaxv951A1P8t4L6NKvnCBK44wu8BJQPdACAQXW&type=jsapi
+	Result：
+{"errcode":0,"errmsg":"ok","ticket":"sM4AOVdWfPE4DxkXGEs8VAPfjVnjEBXQx6VIkdFABOUkrLY9icp_gbDw0_8lKxWkG3X3vx8zktmfuzn6iHRtog","expires_in":7200}
+

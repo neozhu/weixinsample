@@ -1,0 +1,45 @@
+[[[系统日志]]]
+[2020/06/05 14:58:11.4744]
+[线程：1]
+系统启动
+
+[[[自动注册扩展缓存完成]]]
+[2020/06/05 14:58:12.2898]
+[线程：1]
+注册总用时：808.1755ms
+自动扫描程序集：162个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2020/06/05 14:58:12.2969]
+[线程：1]
+微信扩展缓存注册总用时：0.1477ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[系统日志]]]
+[2020/06/05 15:04:22.4505]
+[线程：1]
+系统启动
+
+[[[自动注册扩展缓存完成]]]
+[2020/06/05 15:04:22.8768]
+[线程：1]
+注册总用时：419.4513ms
+自动扫描程序集：162个
+扩展缓存：
+Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[微信扩展缓存注册完成]]]
+[2020/06/05 15:04:22.8827]
+[线程：1]
+微信扩展缓存注册总用时：0.1492ms
+扩展缓存：Senparc.Weixin.Cache.LocalContainerCacheStrategy
+
+[[[接口调用]]]
+[2020/06/05 15:21:26.3294]
+[线程：30]
+	URL：https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=34_ysQq-p3lgSo_ewt8sHJxoG_LYDDXQ7a-Zdr0pMNK21FyK6thNMfucrEM5YLUHWy0BrCGjJKp1XZSZqMCXAJScdrjt7fRhtL9uizasJAeRRBWNUQuswaeSePnl7qHoxxcqu1d5ehphuneJGerUBGdAGABIN&type=jsapi
+	Result：
+{"errcode":0,"errmsg":"ok","ticket":"sM4AOVdWfPE4DxkXGEs8VAPfjVnjEBXQx6VIkdFABOV2GsZelzWON4mXSsEajtwIwa8_ISC7c2Cl1_0GbnBeqg","expires_in":7200}
+

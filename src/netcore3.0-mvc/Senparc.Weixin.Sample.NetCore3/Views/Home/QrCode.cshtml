@@ -26,44 +26,74 @@
         $(() => {
             
             var vehicle_no = localStorage.getItem("vehicle_no");
+            var vehicle_color = localStorage.getItem("vehicle_color");
+            //console.log(vehicle_no, vehicle_no)
+            $('#carno').val(vehicle_no);
+            $('#carcolor').val(vehicle_color);
             //var ic = localStorage.getItem("ic");
-            var openid = localStorage.getItem("openid");
-            var token = localStorage.getItem("token");
+            //var openid = localStorage.getItem("openid");
+            //var token = localStorage.getItem("token");
+            var openid = 'openid';
+            var token='token'
             if (token && openid) {
                 if (vehicle_no == null) {
-                    bootbox.prompt(
+                    vehicle_color = "2";
+                    vehicle_no = '';
+                    bootbox.dialog(
                         {
                             title: "绑定车牌号",
-                            inputType: 'text',
-                            placeholder: '输入有效的车牌号',
-                            //pattern: '[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}',
-                            inputOptions: {
-                                placeholder: '车牌号',
-                                //pattern: '[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}'
-                            },
+                            message: `<div id="inputform" class="form-content" >
+    <form class="form" role="form" id="popform">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" class="form-control  rounded-0 border-top-0 border-left-0 border-right-0 px-0 bg-transparent"
+                       placeholder="有效的车牌号" required="required"
+                       value="${vehicle_no || ''}"
+                       name="carno"
+                       id="carno">
+                <div class="input-group-append">
+                    <select class="form-control rounded-0 border-top-0 border-left-0 border-right-0 px-0 bg-transparent" name="carcolor" id="carcolor">
+                       <option value="1" ${vehicle_color == '1' ? 'selected' : ''}>黄牌</option>
+                        <option value="2"  ${vehicle_color == '2' ? 'selected' : ''}>蓝牌</option>
+                        <option value="3" ${vehicle_color == '3' ? 'selected' : ''}>绿牌</option>
+                        <option value="4" ${vehicle_color == '4' ? 'selected' : ''}>白牌</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+         
+    </form>
+</div>`,
                             buttons: {
                                 confirm: {
                                     label: '绑定',
-                                    className: 'btn-info'
+                                    className: 'btn-info',
+                                    callback: function () {
+                                        var veh = $('#carno').val();
+                                        var color = $('#carcolor').val();
+                                        console.log(veh, color);
+                                        if (veh && color) {
+                                            getvehicel(token, openid, veh, color);
+                                        } else {
+                                            alert('请输入车牌')
+                                            return false;
+                                        }
+
+
+                                    }
+
                                 },
                                 cancel: {
                                     label: '取消',
                                     className: 'btn-default'
                                 }
                             },
-                            callback: function (result) {
-                                console.log(result);
-                                if (result) {
-                                    getvehicel(token, openid, result);
-                               
-                                     
-                                }
-                            }
+
                         });
                 } else {
-                   getvehicel(token, openid, vehicle_no);
+                    getvehicel(token, openid, vehicle_no);
                 }
-               
+
             } else {
                 showinfo('用户没有绑定,清先绑定账号')
                 window.location.href = '/Home/BindUser';
@@ -71,46 +101,71 @@
 
 
             $("#bindingcarbtn").on("click", function () {
-                bootbox.prompt(
+                 vehicle_no = localStorage.getItem("vehicle_no");
+                 vehicle_color = localStorage.getItem("vehicle_color");
+                bootbox.dialog(
                     {
                         title: "重新绑定车牌号",
-                        inputType: 'text',
-                        placeholder: '输入有效的车牌号',
-                        //pattern: '[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳]{1}',
-                        value: vehicle_no,
+                        message: `<div id="inputform" class="form-content" >
+    <form class="form" role="form" id="popform">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" class="form-control  rounded-0 border-top-0 border-left-0 border-right-0 px-0 bg-transparent"
+                       placeholder="有效的车牌号" required="required"
+                       value="${vehicle_no||''}"
+                       name="carno"
+                       id="carno">
+                <div class="input-group-append">
+                    <select class="form-control rounded-0 border-top-0 border-left-0 border-right-0 px-0 bg-transparent" name="carcolor" id="carcolor">
+                        <option value="1" ${vehicle_color=='1'?'selected':''}>黄牌</option>
+                        <option value="2"  ${vehicle_color == '2' ? 'selected' : ''}>蓝牌</option>
+                        <option value="3" ${vehicle_color == '3' ? 'selected' : ''}>绿牌</option>
+                        <option value="4" ${vehicle_color == '4' ? 'selected' : ''}>白牌</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+         
+    </form>
+</div>`,
                         buttons: {
                             confirm: {
                                 label: '绑定',
-                                className: 'btn-info'
+                                className: 'btn-info',
+                                callback: function () {
+                                    var veh = $('#carno').val();
+                                    var color = $('#carcolor').val();
+                                    console.log(veh, color);
+                                    if (veh && color) {
+                                        getvehicel(token, openid, veh,color);
+                                    } else {
+                                        alert('请输入车牌')
+                                        return false;
+                                    }
+
+
+                                }
                             },
                             cancel: {
                                 label: '取消',
                                 className: 'btn-default'
                             }
                         },
-                        callback:  function (result) {
-                            console.log(result);
-                       
-                            if (result) {
-                               getvehicel(token, openid, result);
-                            
-                                 
-                            }
-                        }
+                        
                     });
             });
 
 
 
         })
-        function getvehicel(token, openid, vehicle_no) {
+        function getvehicel(token, openid, vehicle_no,color) {
             var dialog = bootbox.dialog({
                 message: '<p class="text-center mb-0"><i class="fal fa-spin fa-spinner"></i> 请等待...</p>',
                 closeButton: false
             });
     
-            var input = JSON.stringify({ VEHICLE_NO: vehicle_no, VEHICLE_COLOR: "1" });
-            var url = `@ViewBag.apihost/api/passport/getinfoToD?token=${token}&loginMark=${openid}&data=${input}`;
+            var input = JSON.stringify({ VEHICLE_NO: vehicle_no, VEHICLE_COLOR: color });
+            var url = `@ViewBag.apihost/api/passport/getinfoToQrCode?token=${token}&loginMark=${openid}&data=${input}`;
             $.post(url).done(res => {
                 setTimeout(() => {
                     dialog.modal('hide');
@@ -132,8 +187,8 @@
                     showinfo('车牌绑定成功')
                 } else {
                     bootbox.alert(res.info);
-                    localStorage.setItem("vehicle_no", veh);
-                    localStorage.setItem("vehicle_color", '');
+                    localStorage.setItem("vehicle_no", vehicle_no);
+                    localStorage.setItem("vehicle_color", color);
                     localStorage.setItem("ic", '');
                     $('#title').text(`卡号:空`);
                     $('#title1').text(`车牌号:空`);
@@ -142,6 +197,14 @@
             });
             
         } 
+
+        function refreshPage() {
+            var vehicle_no = localStorage.getItem("vehicle_no");
+            var vehicle_color = localStorage.getItem("vehicle_color");
+            var openid = 'openid';// localStorage.getItem("openid");
+            var token = 'token';// localStorage.getItem("token");
+            getvehicel(token, openid, vehicle_no, vehicle_color)
+        }
         function showqrcode(str) {
             //qrcode.makeCode(str);
             if (str) {
@@ -201,8 +264,6 @@
             }
         }
         function showinfo(msg) {
-            toastr["info"](msg)
-
             toastr.options = {
                 "closeButton": false,
                 "debug": false,
@@ -213,16 +274,20 @@
                 "onclick": null,
                 "showDuration": 300,
                 "hideDuration": 100,
-                "timeOut": 5000,
+                "timeOut": 2000,
                 "extendedTimeOut": 1000,
                 "showEasing": "swing",
                 "hideEasing": "linear",
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             }
+            toastr["info"](msg)
+
+          
         }
     </script>
 }
+
 
 
 
@@ -236,23 +301,25 @@
                     重新绑定车号
                 </button>
 
-                <button onclick="window.history.back()" class="btn   btn-light   waves-effect waves-themed">
-                    返回
+                <button onclick="refreshPage()" class="btn   btn-light   waves-effect waves-themed">
+                    <i class="fal fa-redo-alt"></i>
                 </button>
 
             </div>
+            <div class="card-body   m-auto mb-0 pb-0">
+                <h4 id="title" class="mb-0 pb-0">卡号:</h4>
+                </div>
+                <div class="card-body m-auto">
 
-            <div class="card-body m-auto">
-                <h4 id="title">卡号:</h4>
-                <div id="qrcode"  ></div>
+                    <div id="qrcode"></div>
+                </div>
+                <div class="card-body   m-auto mt-0 pt-0">
+
+                    <h4 id="title1">车牌号:</h4>
+                    <h4 id="title2">监管区域:@ViewBag.zone</h4>
+
+                </div>
+
             </div>
-            <div class="card-body   m-auto">
-
-                <h4 id="title1">车牌号:</h4>
-                <h4 id="title2">监管区域:@ViewBag.zone</h4>
-
-            </div>
-
         </div>
-    </div>
 </div>

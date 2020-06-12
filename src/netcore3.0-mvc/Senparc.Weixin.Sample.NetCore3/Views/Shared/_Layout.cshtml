@@ -31,7 +31,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     @RenderSection("styles", required: false)
     
 </head>
-<body class="mod-bg-1 ">
+<body class="mod-bg-1 mod-skin-dark">
 
     <!-- DOC: script to save and load page settings -->
     <script>
@@ -84,7 +84,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
         var resetSettings = function () {
             localStorage.setItem("themeSettings", "");
         }
-
+       
     </script>
     <!-- BEGIN Page Wrapper -->
     <div class="page-wrapper">
@@ -281,11 +281,11 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
     <script src="~/js/vendors.bundle.js"></script>
     <script src="~/js/app.bundle.js"></script>
     @RenderSection("scripts", required: false)
-    <!--<script src="js/../script.js"></script>
+    <script src="js/../script.js"></script>
     <script>
         $(document).ready(function () {
-
+             
         });
-    </script>-->
+    </script>
 </body>
 </html>
